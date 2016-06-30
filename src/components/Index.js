@@ -10,7 +10,7 @@ class Index extends React.Component {
   render() {
     return (
       <div>
-        <Header navActive="1"/>
+        <Header navActive={this.props.active}/>
         <IndexContent pics={this.props.pics}/>
         <Footer/>
       </div>

@@ -21,7 +21,7 @@ class App extends Component {
     const { pics } = this.props
     return (
       <div>
-      	<Index pics={pics} /> 
+      	<Index pics={pics} active={this.props.active}/> 
       </div>
     );
   }

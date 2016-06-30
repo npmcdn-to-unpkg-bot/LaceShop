@@ -12,7 +12,7 @@ const store = configureStore();
 // Render the main component into the dom
 ReactDOM.render(
 	<Provider store={store}>
-		<App />
+		<App active="1"/>
 	</Provider>,
 	document.getElementById('app')
 );
