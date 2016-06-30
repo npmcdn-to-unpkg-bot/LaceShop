@@ -1,0 +1,27 @@
+//选择文件文本框css样式
+.pick-pic-input {
+	position: absolute;
+	right: 0;
+	top: 0;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	cursor: pointer;
+	height: 34px;
+	width: 100% ;
+}
+
+.my-row, .my-row-inner {
+	margin-right: -3px;
+	margin-left: -3px;
+}
+
+.my-col {
+	padding-right: 3px;
+    padding-left: 3px;
+}
+
+ul,li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}

@@ -1,0 +1,33 @@
+.content-title {
+	padding: 15px 0 5px 0;
+
+	.caption {
+	    height: 22px;
+	    margin: 4px 20px 0 0;
+	    font-size: 24px;
+	    float: left;
+	    font-family: 'Microsoft YaHei','lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','WenQuanYi Micro Hei',sans-serif;
+	}
+
+	.more {
+		margin-left: 20px;
+    	margin-top: 8px;
+    	float: right;
+
+    	a {
+    		color: #333;
+		    transition: color 300ms ease;		    
+
+		    &:hover, &:focus {
+		    	color: #337ab7;
+    			text-decoration: none;
+
+		    }
+    	}
+	}
+
+	hr {
+		margin-top: 16px;
+		border-top: 2px solid #666;
+	}
+}
