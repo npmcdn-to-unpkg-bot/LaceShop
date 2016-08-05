@@ -1,0 +1,80 @@
+/*意见反馈标题*/
+.FeedbackTitle{
+	height:74px;
+	width: 100%;
+	line-height:70px;
+	margin: 40px 0px 60px 10px; 
+	background: #edeff5;
+	padding: 0px 25px;
+	box-sizing: border-box;
+}
+.FeedbackTitle .iconfont{
+	font-size: 76px;
+	color: #3487c3;
+	margin-right: 15px;
+	float: left;
+}
+.FeedbackTitle h2{
+	font-size: 24px;
+	color: #9f9f9f;
+	float: left;
+	font-weight: 100;
+	height: 100%;
+	line-height: 82px;
+}
+/*意见反馈表单信息*/
+.FeedbackInfo{
+	max-width: 600px;
+	min-width: 350px;
+	margin: 0px auto;
+}
+.FeedbackInfo ul{
+	width: 100%;
+}
+.FeedbackInfo ul li{
+	width: 100%;
+	min-height:37px;
+	margin-bottom: 30px;
+	line-height: 37px;
+}
+.FeedbackInfo ul li.con{
+	min-height: 125px;
+}
+.FeedbackInfo ul li .leftName{
+	text-align: right;
+	width: 100px;
+	color:#2e2e2e;
+	float: left;
+
+}
+.FeedbackInfo ul li .rightInput{
+	width: 500px;
+	padding-left: 10px;
+	box-sizing: border-box;
+	float: left;
+}
+.FeedbackInfo ul li .rightInput input.info{
+	width: 500px;
+	height: 35px;
+	border:1px solid #e5e5e5;
+	border-radius: 2px;
+	text-indent: 10px;
+}
+.FeedbackInfo ul li .rightInput textarea{
+	width: 500px;
+	height: 125px;
+	border:1px solid #e5e5e5;
+	border-radius: 2px;
+	padding: 10px;
+	box-sizing:border-box;
+	resize: none;
+}
+.FeedbackInfo ul li .rightInput input.FeedBtn{
+	width: 150px;
+	height: 40px;
+	color: #fff;
+	background: #3487c3;
+	border:none;
+	font-size: 16px;
+	margin-left: 100px;
+}

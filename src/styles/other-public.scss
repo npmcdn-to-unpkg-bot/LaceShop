@@ -1,0 +1,270 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+html,body{
+	font-family: "Microsoft Yahei" !important;
+}
+input{
+	border:none;
+}
+ul li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+
+/*===============产品网站main居中内容*/
+.ProWeMain{
+	width: 100%;
+}
+.ProWeMain_con{
+	max-width: 1170px;
+	min-width: 1000px;
+	margin: 0px auto;
+	box-sizing: border-box;
+}
+/*========================弹出框遮罩=====弹出框都要有的样式*/
+.Mask{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0px;
+	top:0px;
+	background: rgba(0,0,0,0.5);
+	z-index: 9;
+}
+.Pop_upBox{
+    position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	top: 0px;
+	margin:auto;
+	z-index: 10;
+}
+/*==================询价弹出框样式开始*/
+#Inquiry{
+	width: 360px;
+	height: 270px;
+}
+/*title*/
+#Inquiry .Inqu_Title{
+	width: 100%;
+	height: 40px;
+	padding: 0px 20px;
+	line-height: 40px;
+	background: #3487c3;
+	box-sizing: border-box;
+}
+#Inquiry .Inqu_Title span{
+	float:left;
+	color:#fff;
+}
+#Inquiry .Inqu_Title i{
+	float:right;
+	color:#fff;
+	cursor: pointer;
+	font-size: 20px;
+}
+/*内容*/
+#Inquiry .Inqu_Com{
+	width: 100%;
+	height: 230px;
+	background: #fff;
+	padding: 20px;
+	box-sizing: border-box;
+}
+#Inquiry .Inqu_Com .Tab{
+	width: 200px;
+	height: 40px;
+	border-radius:20px;
+	border:1px solid #3487c3;
+	box-sizing: border-box;
+	margin: 10px auto;
+	overflow: hidden;
+}
+#Inquiry .Inqu_Com .Tab span{
+	float: left;
+	width: 50%;
+	color: #3487c3;
+	text-align: center;
+	line-height: 40px;
+	cursor: pointer;
+}
+#Inquiry .Inqu_Com .Tab span.active{
+	color:#fff;
+	background: #3487c3;
+}
+#Inquiry .Inqu_Com .switchTab{
+	width:200px;
+	margin: 0px auto;
+	height:100px;
+}
+#Inquiry .Inqu_Com .switchTab > div{
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+#Inquiry .Inqu_Com .switchTab > div .enter{
+	height: 35px;
+	margin-top:25px;
+	color: #909090;
+}
+#Inquiry .Inqu_Com .switchTab > div .enter input{
+	border:none;
+	border-bottom:2px solid #909090;
+	text-align: center;
+	width:100px;
+	margin: 15px 10px 10px 25px;
+	background: none;
+	outline:none;
+}
+#Inquiry .Inqu_Com .switchTab > div .send{
+	width: 100%;
+	height: 40px;
+	color: #fff;
+	background: #3487c3;
+	font-size: 16px;
+	margin:20px 0px 0px 0px;
+}
+#Inquiry .Inqu_Com .prompt{
+	display: block;
+	font-size: 12px;
+	color:#7c7c7c;
+	width:100%;
+	text-align: center;
+	padding-top:5px;
+}
+#Inquiry .Inqu_Com .prompt a{
+	color:#ec1d1d;
+}
+/*==========================询价弹出框样式结束*/
+/*==========================产品详情悬浮框*/
+#ProductDetails{
+	width: 1170px;	
+	min-height:500px;
+	position:absolute;
+    left: 50%;
+    margin-left: -585px;
+    top:50px;
+    z-index: 10;
+}
+#ProductDetails .closeProDe{
+	position: absolute;
+	top:0px;
+	right:-35px;
+	font-size:30px;
+	cursor: pointer;
+	color:#fff;
+}
+#ProductDetails .ProDe_left{
+	width: 815px;
+    padding:25px;
+	box-sizing: border-box;
+	float: left;
+	background: #fff;
+}
+.ProDe_left .topStale{
+    height: 30px;
+    width: 100%;
+}
+.ProDe_left .topStale ul.left{
+	float: left;
+}
+.ProDe_left .topStale ul.left li{
+	float: left;
+	height: 30px;
+	padding: 0px 15px 0px 10px;
+	box-sizing: border-box;
+	line-height:28px;
+	border:1px solid #dcdcdc;
+	font-size: 16px;
+	margin-right:12px;
+	color: #444444;
+	border-radius:3px;
+	cursor: pointer;
+}
+.ProDe_left .topStale ul.left li i{
+	font-size: 18px;
+	margin-right:5px;
+	display: block;
+	float: left;
+}
+.ProDe_left .topStale .right{
+	width: 80px;
+	height: 30px;
+	line-height:27px;
+	float: right;
+	text-align: center;
+	color:#fff;
+	border:1px solid #dcdcdc;
+	box-sizing: border-box;
+	background: url(../image/downloadBg.png);
+	cursor: pointer;
+
+}
+.ProDe_left .ProDe_showBigImg{
+	width: 765px;
+	margin-top: 20px;
+}
+.ProDe_left .ProDe_showBigImg img{
+	display: block;
+}
+#ProductDetails .ProDe_right{
+	width:100%;
+	float: right;
+	padding-right: 25px;
+	box-sizing: border-box;
+	height: 100%;
+	background: #fff;
+}
+#ProductDetails .ProDe_right .innerRight{
+	float: right;
+	width: 315px;
+
+}
+.ProDe_right .contactAddress{
+	color: #444;
+	padding-top: 25px;
+}
+.ProDe_right .contactAddress .con_phone i{
+	width: 20px;
+}
+.ProDe_right .contactAddress > div{
+	margin-bottom: 22px;
+}
+.ProDe_right .contactAddress .con_title{
+	font-size: 18px;
+}
+/*花型信息*/
+.ProDe_right .FlowerInformation{
+	margin-top: 30px;
+}
+.ProDe_right .FlowerInformation .con_title{
+	color:#0b94d7;
+	border-bottom: 1px solid #c2c2c2;
+	padding-bottom: 5px;
+}
+.ProDe_right .FlowerInformation > p{
+	font-size: 12px;
+	padding-top: 5px;
+}
+/*==========================产品详情悬浮框结束*/
+
+/*字体图标*/
+@font-face {font-family: 'iconfont';
+    src: url('../fonts/iconfont.eot'); /* IE9*/
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('../fonts/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('../fonts/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}            

@@ -1,6 +1,6 @@
-const debug = false;
-const remote = true;
-const serverName = debug ? '/tswq/' : './';
+const debug = true;
+const remote = false;
+const serverName = debug ? 'http://localhost:8999/57lacewang/' : './';
 const home = debug ? (remote ? '/tswq/' : '/') : './';
 
 function dress(event, that) {

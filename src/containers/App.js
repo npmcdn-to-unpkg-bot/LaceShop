@@ -1,40 +1,31 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { fetchPosts } from '../actions';
-import Index from '../components/Index';
+require('normalize.css/normalize.css');
+require('styles/Common.scss');
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import Header from '../containers/Header';
+import Footer from '../components/Footer';
 
-  componentDidMount() {
-  	const { dispatch } = this.props;
-    dispatch(fetchPosts());
-  }
-
-  componentWillReceiveProps(nextProps) {
-    
-  }
-
+class App extends React.Component {  
   render() {
-    const { pics } = this.props
-    return (
-      <div>
-      	<Index pics={pics} active={this.props.active}/> 
-      </div>
-    );
-  }
+      return (
+        <div>
+          <Header/>
+          {this.props.children}
+          <Footer/>
+        </div>
+      );
+    }
 }
 
 App.propTypes = {
-  pics: PropTypes.array.isRequired
-};
+  // Injected by React Router
+  children: PropTypes.node
+}
 
-function mapStateToProps(state) {
-  const { postsByVenderPic } = state
+function mapStateToProps(state, ownProps) {
   return {
-    pics: postsByVenderPic
+
   }
 }
 
