@@ -1,42 +1,35 @@
-//响应服务端返回的新增花型
-export const LOAD_REQUEST = 'LOAD_REQUEST';
-export const LOAD_FAILURE = 'LOAD_FAILURE';
+import 'core-js/fn/object/assign';
+import 'babel-polyfill';
 
-export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
-export const LOAD_PIC_SUCCESS = 'LOAD_PIC_SUCCESS';
-export const LOAD_TYPE_SUCCESS = 'LOAD_TYPE_SUCCESS';
-export const LOAD_NOW_SUCCESS = 'LOAD_NOW_SUCCESS';
-export const LOAD_FINDHOT_SUCCESS = 'LOAD_FINDHOT_SUCCESS';
-export const LOAD_BIGSIDE_SUCCESS = 'LOAD_BIGSIDE_SUCCESS';
-export const LOAD_SMALLSIDE_SUCCESS = 'LOAD_SMALLSIDE_SUCCESS';
-export const LOAD_LINING_SUCCESS = 'LOAD_LINING_SUCCESS';
-export const LOAD_EYELASH_SUCCESS = 'LOAD_EYELASH_SUCCESS';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import configureStore from './stores/ConfigureStore';
+import { Provider } from 'react-redux';
+import App from './containers/App';
+import Index from './components/IndexProduct';
+import SupplyProduct from './containers/SupplyProduct';
+import callMe from './containers/callMe';
+import suggestionFeedback from './containers/suggestionFeedback'
 
-function ajaxFetch(url, actionType, params, shouldCallAPI) {
-  let types = [LOAD_REQUEST, '', LOAD_FAILURE];
-  if(actionType){
-    types[1] = actionType;
-  }
-  
-  return {
-    // 要在之前和之后发送的 action types
-    types: types,
-    // 检查缓存 (可选):
-    shouldCallAPI: (state) => {
-      if(shouldCallAPI) {
-        return shouldCallAPI(state);
-      }
-      return true
-    },
-    // 调用URL：
-    callAPI: url,
-    // 在 actions 的开始和结束注入的参数
-    payload: params || {}
-  };
-}
+const store = configureStore();
 
-export function ajaxRequest(url, actionType, params, shouldCallAPI) {
-  return (dispatch, getState) => {
-    return dispatch(ajaxFetch(url, actionType, params, shouldCallAPI))
-  }
-}
+browserHistory.listen((params) => {
+	console.log('router listen', params);
+});
+
+ReactDOM.render(
+	<Provider store={store}>
+		<Router history={browserHistory}>
+		    <Route path="/" component={App}>
+		    	<IndexRoute component={Index}/>
+		    	<Route path="/user/:indexName" component={Index}/>
+		    	<Route path="SupplyProduct" component={SupplyProduct}/>
+		    	<Route path="suggestionFeedback" component={suggestionFeedback}/>
+		    	<Route path="callMe" component={callMe}/>
+		    	<Route path="*" component={Index}/>
+		    </Route>
+	  	</Router>
+  	</Provider>, 
+  	document.getElementById('app')
+);
