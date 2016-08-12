@@ -1,7 +1,7 @@
-const debug = true;
+const debug = (process.env.NODE_ENV != 'production');
 const remote = false;
-const serverName = debug ? 'http://localhost:8999/57lacewang/' : './';
-const home = debug ? (remote ? '/tswq/' : '/') : './';
+const serverName = debug ? 'http://localhost:8999/57lacewang/' : '/';
+const home = debug ? (remote ? '/tswq/' : '/') : '/';
 
 function dress(event, that) {
   event = event || window.event;

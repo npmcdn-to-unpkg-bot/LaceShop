@@ -10,7 +10,9 @@ import App from './containers/App';
 import Index from './components/IndexProduct';
 import SupplyProduct from './containers/SupplyProduct';
 import callMe from './containers/callMe';
-import suggestionFeedback from './containers/suggestionFeedback'
+import suggestionFeedback from './containers/suggestionFeedback';
+import Login from './components/Login';
+import Register from './components/Register'
 
 const store = configureStore();
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 let Utils = require('../utils/utils');
-require('styles/PicIndex.scss');
+require('styles/PicIndexSupply.scss');
 
 export default class PicIndex extends React.Component {
 	constructor(props) {
@@ -38,23 +38,21 @@ export default class PicIndex extends React.Component {
 		        <div className="caption">
 			        <div className="price">
 				        <span>¥</span>
-				        <strong>{this.props.pic.price}</strong>
+				        <strong>{this.props.pic.price ? this.props.pic.price :'未知'}</strong>
+				        <span className ="stock" >&nbsp;&nbsp;&nbsp;库存:{this.props.pic.stock=='无库存'? '无库存':this.props.pic.stock+"(千克)"} </span>
 			        </div>
+			        <div className = "backgrounds1"></div>
 			        <div className="no">
 			        	编号：<span>{this.props.pic.no}</span>
 			        </div>
 			        <div className="clearfix"></div>
-			        <div className="pic-info">
-				        <div className="stock">库存：<span>{this.props.pic.stock} (千克)</span></div>
-				        <div className="ingredient">成分：<span>{this.props.pic.ingredient}</span></div>			        
-			        </div>
 			        <div className="buttons">
-			        	<a href="javascript:;" onClick={this.open} className="btn btn-primary" role="button">下单</a>			        	
-			        	<a href="javascript:;" style={{marginLeft:'6px'}} onClick={this.picDress} data-id={this.props.pic.id} data-src={this.props.pic.url} data-searchType="2" className="btn btn-primary" role="button">试衣</a>
+			        	<a href="javascript:;" onClick={this.open} className="btn btn-primary btns1" role="button"><span className = "iconfont icon-03xiazaiduizhangdan"></span>下单</a>			        	
+			        	<a href="javascript:;" style={{marginLeft:'6px'}} onClick={this.picDress} data-id={this.props.pic.id} data-src={this.props.pic.url} data-searchType="2" className="btn btn-primary btns2" role="button"><span className = "iconfont icon-nvzhuang"></span>试衣</a>
 			        </div>
 		        </div>
 			</div>
-
+			
 			<Modal show={this.state.showModal} onHide={this.close}>
 	          <Modal.Body>
 	            <h4>下单成功</h4>

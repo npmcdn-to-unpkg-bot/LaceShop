@@ -1,5 +1,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import { changHandle } from '../actions';
+import { connect } from 'react-redux';
 require('styles/ContentTitle.scss');
 
 export default class ContentTitle extends React.Component {
@@ -8,13 +10,16 @@ export default class ContentTitle extends React.Component {
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
   }
 
-  handleCategoryChange() {
+  handleCategoryChange(event) {
+   
+    this.props.changHandle(2);
+    console.log("============this.props.pics==============",this.props.pics)
     browserHistory.push(`/SupplyProduct`);
   }
 
   render() {
   	return (
-  		<div className="content-title clearfix">
+  		<div className="content-title clearfix" style = {this.props.pics.length>0 ? {}:{display:'none'}}>
   			<h3 className="caption">{this.props.title}</h3>  			
   			<div className="more">
   				<a href="javascript:;" onClick= {this.handleCategoryChange}>查看更多</a>
@@ -25,3 +30,11 @@ export default class ContentTitle extends React.Component {
   	);
   }
 }
+function mapStateToProps(state, ownProps) {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, {
+  changHandle,
+})(ContentTitle)

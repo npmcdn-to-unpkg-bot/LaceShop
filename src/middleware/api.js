@@ -3,7 +3,7 @@ let Utils = require('../utils/Utils');
 
 let API_ROOT;
 if (process.env.NODE_ENV === 'production') {
-  API_ROOT = 'http://api.57lace.com/';
+  API_ROOT = Utils.serverName;
 } else {
   API_ROOT = Utils.serverName;
 }

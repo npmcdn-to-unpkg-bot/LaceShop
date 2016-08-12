@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>首页</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/plugin/blueimpGallery/css/blueimp-gallery.css">
+  <link rel="stylesheet" href="/plugin/blueimpGallery/css/blueimp-gallery-indicator.css">
+  <link rel="stylesheet" href="/plugin/iconfont/css/iconfont.css">
+  
+
+</head>
+<body>
+  <div id="app"></div>
+  
+  <div id="blueimp-gallery-dress" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="close">×</a>
+  </div>
+
+  <script>__REACT_DEVTOOLS_GLOBAL_HOOK__ = parent.__REACT_DEVTOOLS_GLOBAL_HOOK__</script>
+  <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
+  <!--
+  <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+  -->
+  <!-- or -->
+  <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
+  <script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.js"></script>
+  <!-- or -->
+  <!--
+  <script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script>
+  -->
+  <!-- blueimpGallery start -->
+  <script src="/plugin/blueimpGallery/js/blueimp-helper.js"></script>
+  <script src="/plugin/blueimpGallery/js/blueimp-gallery.js"></script>
+  <script src="/plugin/blueimpGallery/js/blueimp-gallery-fullscreen.js"></script>
+  <script src="/plugin/blueimpGallery/js/blueimp-gallery-indicator.js"></script>
+  <script src="/plugin/blueimpGallery/js/jquery.blueimp-gallery.js"></script>
+  <script src="/plugin/jquery.Jcrop/js/jquery.Jcrop.js"></script>
+
+  <script type="text/javascript" src="/plugin/jQuery-File-Upload/9.12.1/js/vendor/jquery.ui.widget.js"></script>
+  <script type="text/javascript" src="/plugin/jQuery-File-Upload/9.12.1/js/jquery.iframe-transport.js"></script>
+  <script type="text/javascript" src="/plugin/jQuery-File-Upload/9.12.1/js/jquery.fileupload.js"></script>    
+
+  <script type="text/javascript">
+    //把blueimp的内容指向一个页面
+    blueimp.Gallery.prototype.textFactory = function (obj, callback) {
+        var $element = $('<div>').addClass('text-content').attr('title', obj.title);
+        $.get(obj.href).done(function (result) {
+                $element.html(result);
+                callback({
+                    type: 'load',
+                    target: $element[0]
+                });
+            }).fail(function () {
+                callback({
+                    type: 'error',
+                    target: $element[0]
+                });
+            });
+        return $element[0];
+    };
+  </script>
+  <!-- blueimpGallery end -->
+
+  <script type="text/javascript" src="/assets/Common.js"></script>
+  <script type="text/javascript" src="/assets/index.js"></script>
+</body>
+</html>

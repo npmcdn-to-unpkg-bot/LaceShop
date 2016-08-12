@@ -3,4 +3,23 @@
 	img{
 		height:131px;
 	}
+	.container{
+		.allAnchor{
+			text-align: center;
+			button{
+				width: 9%;
+			    height: 35px;
+			    font-size: 14px;
+			    color: #3487c3;
+			    font-family: 微软雅黑;
+			    background-color: #fff;
+			    border: 1px solid #3487c3;
+			    margin: 50px 20px 0 0;
+			    &:hover{
+			    	color:#fff;
+			    	background:#3487c3;
+			    }
+			}
+		}
+	}
 }

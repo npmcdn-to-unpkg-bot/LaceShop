@@ -5,14 +5,25 @@ require('styles/ProWe_ContactInfo.css');
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router'
+import { ajaxRequest, LOAD_VENDER_SUCCESS} from '../actions';
+import { URL_LOAD_VENDER } from '../utils/URLs.js';
 
 export default class  callMe extends React.Component{
-
     constructor(props) {
       super(props);
+      this.vender = [];
     }
-	componentWillMount(){
-	}
+
+    componentWillMount(){
+    	console.log("=============================",this.props.adress)
+    	if(this.props.user.userId){
+    		console.log("==================================进入ajax=============================")
+	      		this.props.ajaxRequest(URL_LOAD_VENDER, LOAD_VENDER_SUCCESS, {
+	      			id:this.props.user.userId
+			});
+    	}
+    }
+
 	render(){
 		return(
 			<div className="ProWeMain ContactMain">
@@ -28,7 +39,7 @@ export default class  callMe extends React.Component{
 			                      <i className="iconfont">&#xe608;</i>
 			                  </span>
 			                  <span className="infoText">
-			                      电话 : 86 020 34494362
+			                      电话 : {this.props.vender ? this.props.vender.phone : "该产家无号码"}
 			                  </span>
 			               </li>
 			               <li className="right">
@@ -36,7 +47,7 @@ export default class  callMe extends React.Component{
 			                      <i className="iconfont">&#xe60a;</i>
 			                  </span>
 			                  <span className="infoText">
-			                      地址 : 中国广东广东市海珠区中大银岭广场二楼E439-E441
+			                      地址 :{this.props.vender ? this.props.vender.vender_address : "暂时无法查看产家地址 "}
 			                  </span>
 			               </li>
 			               <li className="left">
@@ -60,7 +71,7 @@ export default class  callMe extends React.Component{
 			                      <i className="iconfont">&#xe60b;</i>
 			                  </span>
 			                  <span className="infoText">
-			                      传真 : 86 020 34494362
+			                      传真 : {this.props.vender ? this.props.vender.fax : "暂时无法查看产家传真 "}
 			                  </span>
 			               </li>
 			               <li className="right">
@@ -68,17 +79,27 @@ export default class  callMe extends React.Component{
 			                      <i className="iconfont">&#xe60e;</i>
 			                  </span>
 			                  <span className="infoText">
-			                      公司主页 : <a className="OfficialWebsite" href="ts57.lacewang.cn">ts57.lacewang.cn</a>
+			                      公司主页 : <a className="OfficialWebsite" href="ts57.lacewang.cn">{this.props.address}.lacewang.cn?auto=1</a>
 			                  </span>
 			               </li>
 			               <p style={{clear: 'both'}}></p>
 			           </ul>
 			      </div>
 			      <div className="contact_Map">
-			          <img src="../images/map.png" width="100%" height="100%" />
+			          <img src={Utils.home+"images/map.png"} width="100%" height="100%" />
 			      </div>
 			     </div>
 			  </div>
 		  );
 	}
 }
+function mapStateToProps(state, ownProps) {
+  return {
+  	user: state.user,
+  	vender: state.getVenderInfo,
+  }
+}
+
+export default connect(mapStateToProps, {
+  ajaxRequest,
+})(callMe)

@@ -1,9 +1,20 @@
 .pic {
-	.thumbnail{
-		margin-top: 3px;
-		margin-bottom: 3px;
+	position: relative;
+	.borders{
+		border: 1px solid #ddd;
+		margin-top: 10px;
+		.thumbnail{
+			margin-top: 3px;
+			margin-bottom: 3px;
+			border: 0px
+		}
+
+		img{
+			min-height: 131px;
+		}
+		.caption{
+
+		}
 	}
-	img{
-		height:131px;
-	}
+	
 }

@@ -4,14 +4,26 @@ export const LOAD_FAILURE = 'LOAD_FAILURE';
 
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 export const LOAD_PIC_SUCCESS = 'LOAD_PIC_SUCCESS';
-export const LOAD_TYPE_SUCCESS = 'LOAD_TYPE_SUCCESS';
+export const LOAD_CLIENTTYPE_SUCCESS = 'LOAD_CLIENTTYPE_SUCCESS';
+export const LOAD_VENDERTYPE_SUCCESS = 'LOAD_VENDERTYPE_SUCCESS';
 export const LOAD_NOW_SUCCESS = 'LOAD_NOW_SUCCESS';
 export const LOAD_FINDHOT_SUCCESS = 'LOAD_FINDHOT_SUCCESS';
 export const LOAD_BIGSIDE_SUCCESS = 'LOAD_BIGSIDE_SUCCESS';
 export const LOAD_SMALLSIDE_SUCCESS = 'LOAD_SMALLSIDE_SUCCESS';
 export const LOAD_LINING_SUCCESS = 'LOAD_LINING_SUCCESS';
 export const LOAD_EYELASH_SUCCESS = 'LOAD_EYELASH_SUCCESS';
+export const ADD_REG_USER_SUCCESS = 'ADD_REG_USER_SUCCESS';
+export const LOAD_USERLOGIN_SUCCESS = 'LOAD_USERLOGIN_SUCCESS';
+export const LOAD_SEARCH_SUCCESS = 'LOAD_SEARCH_SUCCESS';
+export const LOAD_SEARCH_PERCENT_SUCCESS = 'LOAD_SEARCH_PERCENT_SUCCESS';
+export const CHANGE_SUCCESS = 'CHANGE_SUCCESS';
+export const GETPARAME_SUCCESS = 'GETPARAME_SUCCESS';
+export const LOAD_VENDER_SUCCESS = 'LOAD_VENDER_SUCCESS';
+export const GETADDRESS_SUCCESS = 'GETADDRESS_SUCCESS';
+export const LOAD_CONTENT_SUCCESS = 'LOAD_CONTENT_SUCCESS';
+export const CHANGE_WHERE_SUCCESS = 'CHANGE_WHERE_SUCCESS';
 
+ 
 function ajaxFetch(url, actionType, params, shouldCallAPI) {
   let types = [LOAD_REQUEST, '', LOAD_FAILURE];
   if(actionType){
@@ -38,5 +50,37 @@ function ajaxFetch(url, actionType, params, shouldCallAPI) {
 export function ajaxRequest(url, actionType, params, shouldCallAPI) {
   return (dispatch, getState) => {
     return dispatch(ajaxFetch(url, actionType, params, shouldCallAPI))
+  }
+}
+export function changHandle(navIndex){
+  return (dispatch, getState) => {
+    return dispatch({
+      type: CHANGE_SUCCESS,
+      navIndex: navIndex
+    })
+  }
+}
+export function getParame(sessionId){
+  return (dispatch, getState) => {
+    return dispatch({
+      type: GETPARAME_SUCCESS,
+      sessionId: sessionId
+    })
+  }
+}
+export function getAdress(address){
+  return (dispatch, getState) => {
+    return dispatch({
+      type: GETADDRESS_SUCCESS,
+      address: address
+    })
+  }
+}
+export function getChangeType(changeType){
+  return (dispatch, getState) => {
+    return dispatch({
+      type: CHANGE_WHERE_SUCCESS,
+      changeType: changeType
+    })
   }
 }

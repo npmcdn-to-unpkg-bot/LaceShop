@@ -1,3 +1,4 @@
+require('styles/index/IndexProductsItem.scss');
 
 import React from 'react';
 import Pic from './Pic.js';
@@ -12,36 +13,74 @@ export default class IndexProductsItem extends React.Component {
     this.userId = 0;
   }
 
-  componentDidUpdate(){
+  componentWillReceiveProps(nextProps){
+      console.log("=========================user=========================",this.props.user)
     if(0 == this.userId){
-      let { userId, userType } = this.props.user;
+      let { userId, userType } = nextProps.user;
       this.userId = userId;
-      let { orderBy, category, successType } = this.props;
+      let { orderBy, category, successType } = nextProps;
       let limit = 12;//返回多少条
 
       if(userType == 1){
-        this.props.ajaxRequest(URL_LOAD_CLIENTPIC, successType, {
-          userId: this.props.user.userId,
+        nextProps.ajaxRequest(URL_LOAD_CLIENTPIC, successType, {
+          userId: userId,
           category: category,
           orderBy: orderBy,
           limit: limit
         });     
       }else if(userType == 2){
-        this.props.ajaxRequest(URL_LOAD_VNEDERPIC, successType, {
-          userId: this.props.user.userId,
+        nextProps.ajaxRequest(URL_LOAD_VNEDERPIC, successType, {
+          userId: userId,
           category: category,
           orderBy: orderBy,
           limit: limit
         });   
       }
     }
+
+    if(nextProps.pics && nextProps.pics.length > 0) {
+      let indexNameNode = this.refs.indexItem;
+ 
+      $(indexNameNode).imagesLoaded( function () {
+        let minHeight = -1;
+        let height = 0; 
+        $(indexNameNode).find('.thumbnail>a').each((index, dom) => {
+          height = $(dom).height();                  
+          if(height > 0 && (height < minHeight || -1 == minHeight)){
+            minHeight = height;
+          }          
+        })  
+
+        $(indexNameNode).find('.thumbnail>a').each((index, dom) => {
+          $(dom).height(minHeight);
+          $(dom).find('img').css('margin-top', - (($(dom).find('img').height() - minHeight) / 2) + 'px');             
+        })     
+      });
+    }
   }
 
+  componentDidMount(){
+     let indexNameNode = this.refs.indexItem;
+      $(indexNameNode).imagesLoaded( function () {
+        let minHeight = -1;
+        let height = 0; 
+        $(indexNameNode).find('.thumbnail>a').each((index, dom) => {
+          height = $(dom).height();                  
+          if(height > 0 && (height < minHeight || -1 == minHeight)){
+            minHeight = height;
+          }          
+        })  
 
+        $(indexNameNode).find('.thumbnail>a').each((index, dom) => {
+          $(dom).height(minHeight);
+          $(dom).find('img').css('margin-top', - (($(dom).find('img').height() - minHeight) / 2) + 'px');             
+        })     
+      });
+  }
 
   render() {
   	return (
-  		<div className="index-item">
+  		<div ref="indexItem" className="index-item">
   			<div className="row my-row">
           {this.props.pics.map((pic, index) => {
               return <Pic pic={pic} key={index}/>
@@ -54,7 +93,7 @@ export default class IndexProductsItem extends React.Component {
 
 function mapStateToProps(state, ownProps) {
   return { 
-    
+  
   }
 }
 

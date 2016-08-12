@@ -1,0 +1,73 @@
+.caption{
+	padding: 9px 9px 6px 9px;
+
+	.price {
+		color: #F40;
+	    font-size: 14px;
+	    float: left;
+	}
+
+	.no {
+	    text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
+	    position: absolute;
+	    width: 174px;
+	    bottom: 72px;
+	    left: 9px;
+	    color: #fff;
+	    text-align: center;
+	    
+	}
+	.backgrounds1	{
+		width: 174px;
+		height: 20px;
+	    position: absolute;
+	    width: 227px;
+	    left: 9px;
+	    bottom: 72px;
+		background-color:#000;
+	    opacity: 0.7;
+	}
+	.stock{
+		font-size: 14px;
+	}
+	.pic-info {
+		height: 24px;
+	    font-size: 12px;
+	    color: #555;
+	    
+	
+	    .stock, .ingredient {
+	    	height: 17px;
+	    	 
+	    	font-size: 12px;
+	    }
+	}
+
+	.buttons {
+	  
+		.btn {
+			background-image: none;
+			padding: 3px 6px;
+		}
+		.btns1{
+			background-color:#fff;
+			color:#265a88;
+			border:0px;
+			margin-right:80px;	
+		}
+		.btns2{
+			background-color:#fff;
+			color:#265a88;
+			border:0px;
+
+		}
+	}
+}
+.item{
+	padding-bottom:0px;
+	.thumbnail{
+		margin-bottom:3px;
+	}
+}
