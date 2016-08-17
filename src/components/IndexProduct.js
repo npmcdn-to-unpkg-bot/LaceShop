@@ -12,7 +12,7 @@ export default class IndexProduct extends React.Component {
   constructor(props) {    
     super(props);
     this.state = {ourname:null};
-    this.types = [];
+    // this.types = [];
   }
 
 
@@ -33,19 +33,28 @@ export default class IndexProduct extends React.Component {
       indexName: indexNames
     });
   }
-  componentWillReceiveProps(nextProps){
-    // console.log("==========this.props.nowPic===============",this.props.nowPic)
-    // console.log("==========this.props.hotPic===============",this.props.hotPic)
-    // console.log("==========this.props.liningPic===============",this.props.liningPic)
-    // console.log("==========this.props.bigSidePic===============",this.props.bigSidePic)
-    // console.log("==========this.props.smallSidePic===============",this.props.smallSidePic)
-    // console.log("==========this.props.eyeslashPic===============",this.props.eyeslashPic)
-    // if(this.props.nowPic.length){
-
-    // }else if(){
-
-    // }
-  }
+  // componentWillReceiveProps(nextProps){
+  //   if(this.props.liningPic.length){
+  //     types.push(1);
+  //   }else{
+  //     types.push(0);
+  //   }
+  //   if(this.props.bigSize.length){
+  //     types.push(1);
+  //   }else{
+  //     types.push(0);
+  //   }
+  //   if(this.props.smallSize.length){
+  //     types.push(1);
+  //   }else{
+  //     types.push(0);
+  //   }
+  //   if(this.props.eyeslash.length){
+  //     types.push(1);
+  //   }else{
+  //     types.push(0);
+  //   }
+  // }
   goto(category){
     if(category == 1){
       window.location.href ='#linging'

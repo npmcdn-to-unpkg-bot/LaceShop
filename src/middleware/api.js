@@ -1,4 +1,4 @@
-import 'isomorphic-fetch'
+  import 'isomorphic-fetch'
 let Utils = require('../utils/Utils');
 
 let API_ROOT;
@@ -19,6 +19,7 @@ function callApi(callAPI, params) {
 
   let fetchParams = {
     method: 'POST',
+    credentials: 'include',
     body: data
   };
 

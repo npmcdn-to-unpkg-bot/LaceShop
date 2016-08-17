@@ -15,9 +15,7 @@ export default class  callMe extends React.Component{
     }
 
     componentWillMount(){
-    	console.log("=============================",this.props.adress)
     	if(this.props.user.userId){
-    		console.log("==================================进入ajax=============================")
 	      		this.props.ajaxRequest(URL_LOAD_VENDER, LOAD_VENDER_SUCCESS, {
 	      			id:this.props.user.userId
 			});

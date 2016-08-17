@@ -1,13 +1,18 @@
 require('styles/Header.scss');
 require('styles/jquery.Jcrop.css');
 let Utils = require('../utils/Utils');
+require('styles/Login.scss');
+require('styles/Register.scss')
 
 import React from 'react';
 import HeaderUserTip from './HeaderUserTip.js';
 import { browserHistory,router,hashHistory, } from 'react-router';
-import { Nav, NavItem, OverlayTrigger, Popover, Modal, Overlay, ProgressBar } from 'react-bootstrap';
-import { LOAD_SEARCH_SUCCESS, LOAD_SEARCH_PERCENT_SUCCESS } from '../actions';
-import { URL_LOAD_CLIENTPIC, URL_LOAD_VNEDERPIC, URL_LOAD_SEARCH_PERCENT } from '../utils/URLs.js';
+import { Nav, NavItem, OverlayTrigger, Popover, Modal, Overlay, ProgressBar,form, DropdownButton,MenuItem } from 'react-bootstrap';
+import { LOAD_SEARCH_SUCCESS, LOAD_SEARCH_PERCENT_SUCCESS, LOAD_USERLOGIN_SUCCESS, 
+  LOAD_CAPTCHA_SUCCESS, LOAD_ADDUSER_SUCCESS } from '../actions';
+import { URL_LOAD_CLIENTPIC, URL_LOAD_VNEDERPIC, URL_LOAD_SEARCH_PERCENT, 
+  URL_LOAD_TOLOGIN, URL_LOAD_CAPTCHA, URL_LOAD_SAVEUSER } from '../utils/URLs.js';
+
 
 export default class Header extends React.Component {  
   constructor(props) {    
@@ -19,7 +24,12 @@ export default class Header extends React.Component {
       popoverTarget: null,
       showPopover: false,
       isSearching: false,
-      percent : -1
+      percent : -1,
+      showModalToLogin: false,
+      role: 1,
+      roleName: '我是采购商',
+      showModalRegister:false,
+      switchUpload:false,
     };
 
     this.flags = true;
@@ -28,8 +38,13 @@ export default class Header extends React.Component {
     this.position;
     this.defaultPosition;
     this.srcName = null;
+    this.countDown = false;
+    this.checkFristLogin = true;
+    this.checkFirstRegister =true;
+   
     
-
+    this.changeRole = this.changeRole.bind(this)
+    this.submitReg = this.submitReg.bind(this)
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
     this.cutFlowerChange = this.cutFlowerChange.bind(this);
@@ -37,14 +52,86 @@ export default class Header extends React.Component {
     this.getFlowers = this.getFlowers.bind(this);
     this.toLogin = this.toLogin.bind(this);
     this.toRegister = this.toRegister.bind(this);
+    this.submitLogin = this.submitLogin.bind(this);
+    this.sendCAPTCHA = this.sendCAPTCHA.bind(this);
+  }
+
+  sendCAPTCHA(){
+      let self = this;
+      let times = 60;
+      let tel = $(this.refs.telRegister).val();
+      this.props.ajaxRequest(URL_LOAD_CAPTCHA,LOAD_CAPTCHA_SUCCESS,{
+        username:tel
+      })
+      if(this.countDown == false){
+        let numbers = setInterval(function(){
+          times--;
+          this.countDown == true;
+          $(self.refs.timeout).text("发送中..."+times+"秒")
+          if(times<=0){
+              $(self.refs.timeout).text("获取验证码超时");
+              clearInterval(numbers);
+              numbers = null;
+              self.countDown = false;
+            }
+        },1000);
+      }
+    
+    
+  }
+
+  submitLogin(){
+    let tel = $(this.refs.telLogin).val();
+    let password = $(this.refs.pwdLogin).val();
+    this.props.ajaxRequest(URL_LOAD_TOLOGIN,LOAD_USERLOGIN_SUCCESS,{
+      tel:tel,
+      password:password,
+    })
+  }
+
+  submitReg(evt) {
+    evt.preventDefault();
+    let tel = $(this.refs.telRegister).val();
+    let regCode = $(this.refs.getReg).val() 
+    let password = $(this.refs.passwordRegister).val()
+    // const { ajaxRequest } = ;
+    if(tel && password) {  
+      this.props.ajaxRequest(URL_LOAD_SAVEUSER, LOAD_ADDUSER_SUCCESS, {
+          usertype: this.state.role, 
+          password: password,
+          tel: tel,
+          regCode: regCode,
+      })
+    }else{
+      
+    }
+  //     setTimeout(() => {
+  //       alert('注册成功');
+  //     }, 2000);
+  //   } else {
+  //     alert('填写的信息有误');
+  //   }
+  //   return false;
+   }
+
+
+  changeRole(role) {
+    let roleName = '我是采购商';
+    if(role == 2) {
+      roleName = '我是供应商';
+    }
+    this.setState({
+      role: role,
+      roleName: roleName       
+    });
   }
 
   toLogin(){
-    browserHistory.push(`/Login`)
+    this.setState({ showModalToLogin: true });
   }
 
   toRegister(){
-    browserHistory.push(`/Register`)
+    this.setState({ showModalRegister: true });
   }
 
   handleChange(nextValue, navIndex) {
@@ -54,9 +141,13 @@ export default class Header extends React.Component {
 
   close() {
     this.setState({ showModal: false });
+    this.setState({ showModalToLogin: false });
+    this.setState({ showModalRegister: false });
+
   }
 
   getFlowers(e){
+    this.setState({switchUpload:true});
     if(this.state.activeCategory == 0){      
       this.setState({ popoverTarget: e.target, showPopover: true });
       return;
@@ -159,22 +250,32 @@ export default class Header extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("================================....")
+    if(nextProps.saveUser && this.checkFirstRegister){
+      this.setState({ showModalRegister: false });
+      alert("注册成功")
+      this.checkFirstRegister =false;
+    }
+    if(nextProps.tologin && this.checkFristLogin ){
+      this.setState({ showModalToLogin: false });
+      alert("登录成功")
+      this.checkFristLogin =false;
+    }
     let { searchStatus, ajaxRequest, sessionId } = nextProps;
     this.state.percent = searchStatus
-    console.log('nextProps', nextProps, searchStatus);
-    if(0 == this.state.percent) {
+    if(0 == this.state.percent && this.state.switchUpload) {
       this.setState({ showModal: false });
       ajaxRequest(URL_LOAD_SEARCH_PERCENT, LOAD_SEARCH_PERCENT_SUCCESS, {
 
       });
-    } else if (0 < this.state.percent && this.state.percent < 100) {      
+    } else if (0 < this.state.percent && this.state.percent < 100 && this.state.switchUpload) {
       setTimeout(() => {
         ajaxRequest(URL_LOAD_SEARCH_PERCENT, LOAD_SEARCH_PERCENT_SUCCESS, {
-
+          sessionId: sessionId
         });
       },2000)      
-    } else if (this.state.percent >= 100) {
+    } else if (this.state.percent >= 100 && this.state.switchUpload) {
+      console.log(1111)
+      this.setState({switchUpload:false})
       this.setState({
         isSearching: false,
         percent: -1
@@ -204,10 +305,11 @@ export default class Header extends React.Component {
           <div className="container">
             <div className="collapse navbar-collapse">
               <ul className="nav navbar-nav">
+                <li><a href="javascript:;" className="nav-text" style={{fontSize:'14px'}}>&nbsp;{this.props.tologin?"用户:"+this.props.tologin.tel:""}</a></li>
                 <li><a href="javascript:;" className="nav-text" style={{fontSize:'14px'}}>&nbsp;欢迎来到{this.props.user.usernameForShort}&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-                <li><a href="javascript:;" className="nav-link" onClick = {this.toLogin}>请登录</a></li>
-                <li><a href="javascript:;" className="nav-split">|</a></li>
-                <li><a href="javascript:;" className="nav-link" onClick = {this.toRegister}>免费注册</a></li>
+                <li><a href="javascript:;" className="nav-link" onClick = {this.toLogin}>{this.checkFristLogin?"请登录":""}</a></li>
+                <li><a href="javascript:;" className="nav-split">{this.checkFristLogin?"|":""}</a></li>
+                <li><a href="javascript:;" className="nav-link" onClick = {this.toRegister}>{this.checkFristLogin || this.checkFirstRegister ?"免费注册":""}</a></li>
               </ul>
             </div>
           </div>
@@ -235,7 +337,7 @@ export default class Header extends React.Component {
             <div className="clearfix"></div>
           </div>
           <div className="right">
-            <div style={(this.state.percent > 0 ? {visibility: 'hidden'} : {})} className="search-area">
+            <div style={( this.state.switchUpload ? {visibility: 'hidden'} : {})} className="search-area">
               <a href="javascirpt:;" className="upload-btn">
                 <i className = "iconfont icon-camera"></i>
                 <span>上传搜花</span>
@@ -243,7 +345,7 @@ export default class Header extends React.Component {
               </a>
               <form className="search-form">
                 <span className="stuwr"> 
-                  <input type="text" placeholder="编号或厂名" className="search-key"/>                      
+                  <input type="text" placeholder="编号" className="search-key"/>                      
                 </span> 
                 <span className="stsb"> 
                   <input type="submit" value="搜花一下"/>
@@ -270,7 +372,7 @@ export default class Header extends React.Component {
                 </div>
               </div>
             </div>
-            <ProgressBar style={(this.state.percent > 0 ? {display: 'block'} : {display: 'none'})} now={(this.props.searchStatus > 0 ? this.props.searchStatus : 0)} label={(this.props.searchStatus > 0 ? `${this.props.searchStatus}%` : '')} />
+            <ProgressBar style={(this.state.switchUpload ? {display: 'block'} : {display: 'none'})} now={(this.props.searchStatus > 0 ? this.props.searchStatus : 0)} label={(this.props.searchStatus > 0 ? `${this.props.searchStatus}%` : '')} />
 
           </div>
           <div className="clearfix"></div>
@@ -331,6 +433,61 @@ export default class Header extends React.Component {
             </div>
           </div>          
         </Modal>
+        <Modal show={this.state.showModalToLogin} onHide={this.close} className = "modalLog">
+          <Modal.Body>
+            <div className="right">
+              <button type="button" className="close" aria-label="Close" onClick={this.close}><i  className = "iconfont icon-quxiao"></i></button>             
+              <div className="title">
+                <h4>账号登录</h4>                
+              </div>
+                <div className="tswq-input-group accountName">
+                  <span className="glyphicon glyphicon-user hengxin-icon hengxin-icon-tel"></span>
+                  <input name="username" className="form-control hengxin-login-input" type="number" placeholder="手机号码" ref="telLogin"/>
+                </div>
+                <div className="tswq-input-group passwordName">
+                  <span className="glyphicon glyphicon-lock hengxin-icon"></span>
+                  <input name="password" className="form-control hengxin-login-input" type="password" placeholder="密码" ref = "pwdLogin"/>
+                </div>
+                <button onClick={this.submitLogin}  className="btn btn-primary btn-lg btn-block hengxin-login-btn"> 登 录 </button>            
+              
+            </div>
+          </Modal.Body>
+        </Modal>
+        <Modal  className = "modalReg" show={this.state.showModalRegister} onHide={this.close}>
+            <Modal.Body>
+              <div className="right">
+              <button type="button" className="close" aria-label="Close" onClick={this.close}><i  className = "iconfont icon-quxiao"></i></button>             
+              <div className="title">
+                <h4>账号注册</h4>                
+              </div>
+
+              <form className="form-horizontal" onSubmit={(evt) => this.submitReg(evt)}> 
+                <div class="role-pick">
+                  <DropdownButton bsSize="large" bsStyle="default" title={this.state.roleName} id="rolePicker" className="btn-block findType" onSelect={(role) => this.changeRole(role)}>
+                    <MenuItem eventKey="1" active={this.state.role == 1}>我是采购商</MenuItem>
+                    <MenuItem eventKey="2" active={this.state.role == 2}>我是供应商</MenuItem>
+                  </DropdownButton>
+                </div>
+                <div className="tswq-input-group findTel">
+                  <span className="glyphicon glyphicon-user hengxin-icon hengxin-icon-tel"></span>
+                  <input ref="username" className="form-control hengxin-login-input" ref = "telRegister" type="number" placeholder="手机号码"/>
+                </div>
+                <div className="tswq-input-group findPwd">
+                  <span className="glyphicon glyphicon-lock hengxin-icon"></span>
+                  <input ref="password" className="form-control hengxin-login-input" ref="passwordRegister" type="password" placeholder="密码"/>
+                </div>
+                <div className="input-group findReg">
+                  <span className="glyphicon glyphicon-envelope hengxin-icon hengxin-icon-regCode"></span>
+                  <input name="regCode" className="form-control hengxin-login-input hengxin-login-input-code" ref="getReg" type="text" placeholder="验证码"/>
+                  <span className="input-group-btn">
+                    <button type="button" className="btn btn-primary hengxin-btn-regCode" ref = "timeout"  onClick = {this.sendCAPTCHA}>获取验证码</button>
+                  </span>
+                </div>
+                <button type="submit" data-loading-text="注册中..." className="btn btn-primary btn-lg btn-block hengxin-login-btn"> 注 册 </button>             
+              </form>
+            </div>
+            </Modal.Body>
+          </Modal>
       </div>
     );
   }

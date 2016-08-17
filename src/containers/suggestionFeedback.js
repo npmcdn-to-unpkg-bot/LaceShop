@@ -24,7 +24,6 @@ export default class suggestionFeedback extends React.Component{
 		let username = $(this.refs.username).val();
 		let content = $(this.refs.contexts).val();
 		let telephone = $(this.refs.telephone).val();
-		console.log("===================================",this.props.user.userType)
 		this.setState({
        	    isUpload: true
       	})

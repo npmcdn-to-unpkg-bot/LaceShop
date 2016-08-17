@@ -1,5 +1,6 @@
 let Utils = require('../utils/Utils');
 require('styles/Register.scss');
+require('styles/Login.scss')
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
@@ -27,36 +28,47 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div className="reg">
-        <div className="container" style={{padding:0}}>
-          <div className="reg-banner">
-            <img src={Utils.home + 'images/login.jpg'} alt="LOGO"/>
-          </div>
-          <div className="reg-content">
-            <div className="left">
-              <img src={Utils.home + 'images/left.png'}/>
-            </div>
-            <div className="right">             
-              <div className="title">
-                <h4>账号登录</h4>                
-              </div>
-
-              <form className="form-horizontal" onSubmit={(evt) => this.loginFn(evt)}> 
-                <div className="tswq-input-group">
-                  <span className="glyphicon glyphicon-user hengxin-icon hengxin-icon-tel"></span>
-                  <input name="username" className="form-control hengxin-login-input" type="number" placeholder="手机号码" id = "telNum"/>
-                </div>
-                <div className="tswq-input-group">
-                  <span className="glyphicon glyphicon-lock hengxin-icon"></span>
-                  <input name="password" className="form-control hengxin-login-input" type="password" placeholder="密码" id = "psw"/>
-                </div>
-                <button type="submit" data-loading-text="登录中..." className="btn btn-primary btn-lg btn-block hengxin-login-btn" on> 登 录 </button>             
+      <Modal show={this.state.showModalToLogin} onHide={this.close}>
+          <Modal.Body>
+             <div className="right">
+              <form className="loginFrame" onSubmit={(e) => this.submitHandle(e) }>
+                  <div className="loginName">
+                      <p>帐号登录</p>
+                  </div>
+                  <div className="loginContext">
+                      <div className="account">
+                          <span className="glyphicon glyphicon-user">
+                          </span>
+                          <input type="text" placeholder="手机号" 
+                                 onChange={this.checkTel }/>
+                      </div>
+                      {this.renderError('account') }
+                      <div className="password">
+                          <span className="glyphicon glyphicon-lock">
+                          </span>
+                          <input type="password" placeholder="密码" value={form.pwd.val}
+                                 onChange={(e) => {
+                                     this.handleChange(e, 'pwd')
+                                 } }/>
+                      </div>
+                      {this.renderError('pwd') }
+                  </div>
+                  <div className="loginAssist">
+                      <a href="javascript:;" className="forgetPassword">忘记密码</a>
+                      <a href="javascript:;" className="forgetAccount">忘记登录名</a>
+                      <Link to='/register' className="register">免费注册</Link>
+                  </div>
+                  <div className="toLogin">
+                      <button className="tologinButton">登录</button>
+                  </div>
               </form>
-
             </div>
-          </div>
-        </div>
-      </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.close}>关闭</Button>
+          </Modal.Footer>
+        </Modal>
+     
     );
   }
 }

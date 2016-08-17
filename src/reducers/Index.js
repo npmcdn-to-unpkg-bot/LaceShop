@@ -9,7 +9,9 @@ import { LOAD_USER_SUCCESS, LOAD_PIC_SUCCESS ,
 	CHANGE_SUCCESS,GETPARAME_SUCCESS,
 	LOAD_CLIENTTYPE_SUCCESS, LOAD_VENDERTYPE_SUCCESS,
 	LOAD_VENDER_SUCCESS,GETADDRESS_SUCCESS,
-	LOAD_CONTENT_SUCCESS,CHANGE_WHERE_SUCCESS} from '../actions'
+	LOAD_CONTENT_SUCCESS,CHANGE_WHERE_SUCCESS,
+	LOAD_ADDMORE_SUCCESS, LOAD_CAPTCHA_SUCCESS,
+	LOAD_ADDUSER_SUCCESS} from '../actions'
 
 function user(state = {}, action) {
   switch (action.type) {    
@@ -127,7 +129,7 @@ function adduser(state=[],action){
 	}
 }	
 
-function tologin(state=[],action){
+function tologin(state=null,action){
 	switch(action.type){
 		case LOAD_USERLOGIN_SUCCESS:
 		    return action.response;
@@ -139,10 +141,7 @@ function tologin(state=[],action){
 function searchStatus(state = -1, action){
 	switch(action.type){
 		case LOAD_SEARCH_SUCCESS:
-			if(!action.response){
-				return 0;
-			}
-		    return action.response;
+			return 0;
 		case LOAD_SEARCH_PERCENT_SUCCESS:
 			return parseInt(action.response.percent);
 		default:
@@ -154,6 +153,8 @@ let responseSessionId = (state = '', action) => {
 	switch(action.type){
 		case LOAD_SEARCH_PERCENT_SUCCESS:
 			return action.response.sessionId;
+		case LOAD_SEARCH_SUCCESS:
+			return action.response;
 		default:
 			return state;
 	}
@@ -197,11 +198,8 @@ function getAddress(state=null,action){
 }
 
 function getChanges(state=-1,action){
-	console.log("==================================action.type===========================",action.type)
 	switch(action.type){
 		case CHANGE_WHERE_SUCCESS:
-		console.log("==============action.changeType==============================",action.changeType)
-		    return action.changeType;
 		default:
 			return state;
 	}
@@ -212,6 +210,33 @@ function uploadContext(state=null,action){
 		case LOAD_CONTENT_SUCCESS:
 
 		    return 1;
+		default:
+			return state;
+	}
+}
+
+function insertMore(state=[],action){
+	switch(action.type){
+		case LOAD_ADDMORE_SUCCESS:
+		    return action.response;
+		default:
+			return state;
+	}
+}
+
+function getRegCode(state=null,action){
+	switch(action.type){
+		case LOAD_CAPTCHA_SUCCESS:
+		    return action.response;
+		default:
+			return state;
+	}
+}
+
+function saveUser(state=null,action){
+	switch(action.type){
+		case LOAD_ADDUSER_SUCCESS:
+		    return action.response;
 		default:
 			return state;
 	}
@@ -236,6 +261,10 @@ const rootReducer = combineReducers({
    getAddress,
    uploadContext,
    getChanges,
+   insertMore,
+   tologin,
+   getRegCode,
+   saveUser,
 });
 
 export default rootReducer;

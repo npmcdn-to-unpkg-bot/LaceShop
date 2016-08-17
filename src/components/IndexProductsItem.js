@@ -14,7 +14,6 @@ export default class IndexProductsItem extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-      console.log("=========================user=========================",this.props.user)
     if(0 == this.userId){
       let { userId, userType } = nextProps.user;
       this.userId = userId;

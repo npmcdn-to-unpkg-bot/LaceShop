@@ -12,6 +12,7 @@ export default class ContentTitle2 extends React.Component {
   }
 
   handleCategoryChange() {
+
     this.props.changHandle(2);
     browserHistory.push(`/SupplyProduct`);
     

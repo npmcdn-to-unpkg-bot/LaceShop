@@ -12,7 +12,9 @@ function mapStateToProps(state, ownProps) {
   	user: state.user,
   	searchStatus: state.searchStatus,
   	navIndexInProp: state.headerActiveNav,
-  	sessionId: state.responseSessionId
+  	sessionId: state.responseSessionId,
+  	tologin:state.tologin,
+    saveUser:state.saveUser,
   }
 }
 

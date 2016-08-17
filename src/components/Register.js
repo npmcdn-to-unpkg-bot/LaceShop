@@ -19,9 +19,6 @@ export default class Register extends React.Component {
       roleName: '我是采购商' 
     }
   } 
-  componentWillMount(){
-    alert(111111)
-  }
   changeRole(role) {
     let roleName = '我是采购商';
     if(role == 2) {

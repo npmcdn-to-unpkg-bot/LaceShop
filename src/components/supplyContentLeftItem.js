@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ajaxRequest, getChangeType, LOAD_PIC_SUCCESS, LOAD_CLIENTTYPE_SUCCESS, LOAD_VENDERTYPE_SUCCESS } from '../actions';
+import { ajaxRequest, getChangeType,getParame ,LOAD_PIC_SUCCESS, LOAD_CLIENTTYPE_SUCCESS, LOAD_VENDERTYPE_SUCCESS } from '../actions';
 import { URL_LOAD_VENDERPICTYPE_VENDER, URL_LOAD_CLIENTPICTYPE_VENDER,
          URL_LOAD_CLIENTPIC, URL_LOAD_VNEDERPIC } from '../utils/URLs.js';
 
@@ -30,11 +30,11 @@ export default class supplyContentLeftItem extends React.Component {
   }
 
   getTypeFlower(f,event){
-    console.log("=======================f===============================",f)
     let Type = this.props.user.userType;
     let categoryType = $(event.nativeEvent.target).text()
     let category = 0;
     let subCategory =0;
+    this.props.getParame(null)
     this.props.getChangeType(f);
     this.picType.map((pic,i) =>{
       if(categoryType == pic.categoryName){
@@ -64,7 +64,6 @@ export default class supplyContentLeftItem extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("=================nextProps=============================",nextProps)
     this.setState({
         changeWhere: nextProps.changType,
         percent: -1
@@ -87,7 +86,8 @@ export default class supplyContentLeftItem extends React.Component {
         </div>
         <div className="category-item">
           <ul className="clearfix" activeKey={this.state.changeWhere}>
-            {this.picType.map((pic, i) =>                    
+            {this.picType.map((pic, i) =>
+
               <li key={'subCategory' + i} className={i == this.props.changType ? ' onChanges' : ''}><a href="javascript:;"  className="tips" onClick={this.getTypeFlower.bind(this,i)}>{pic.categoryName}</a></li>
             )} 
           </ul>
@@ -108,5 +108,6 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps, {
   ajaxRequest,
-  getChangeType
+  getChangeType,
+  getParame,
 })(supplyContentLeftItem)

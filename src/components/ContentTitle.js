@@ -11,9 +11,8 @@ export default class ContentTitle extends React.Component {
   }
 
   handleCategoryChange(event) {
-   
+    
     this.props.changHandle(2);
-    console.log("============this.props.pics==============",this.props.pics)
     browserHistory.push(`/SupplyProduct`);
   }
 
