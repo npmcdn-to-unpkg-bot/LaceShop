@@ -34,7 +34,7 @@ export default class supplyContentLeftItem extends React.Component {
     let categoryType = $(event.nativeEvent.target).text()
     let category = 0;
     let subCategory =0;
-    this.props.getParame(null)
+    this.props.getParame('');
     this.props.getChangeType(f);
     this.picType.map((pic,i) =>{
       if(categoryType == pic.categoryName){

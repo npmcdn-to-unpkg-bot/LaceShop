@@ -11,31 +11,29 @@ require('styles/SupplyProductsContent.scss');
 export default class SupplyProductsContent extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-      pagePics:[]
-    }
-    this.sessionId = null
+    this.sessionId = null;
+    this.srcName = null;
     this.page = 1;
-    this.control = false;
-    this.pagePics = []
-    this.nowPics =[]
     this.loadPic = this.loadPic.bind(this);
     this.addMore = this.addMore.bind(this);
   }
 
-  loadPic(){
+  loadPic(succType){
+    let self = this;
+    succType = succType || LOAD_PIC_SUCCESS;
+    let genParams = (reduxState) => {
+      return {
+        userId: reduxState.user.userId,
+        sessionId: self.sessionId ? self.sessionId : '',
+        srcName: self.srcName ? self.srcName : '',
+        page: self.page
+      }
+    }
+
     if(this.props.user.userType == "1"){
-      this.props.ajaxRequest(URL_LOAD_CLIENTPIC, LOAD_PIC_SUCCESS, {
-        userId: this.props.user.userId,
-        sessionId: this.sessionId ? this.sessionId : '',
-        
-      });
+      this.props.ajaxRequest(URL_LOAD_CLIENTPIC, succType, genParams);
     }else if(this.props.user.userType == "2"){        
-      this.props.ajaxRequest(URL_LOAD_VNEDERPIC, LOAD_PIC_SUCCESS, {
-        userId: this.props.user.userId,
-        sessionId: this.sessionId ? this.sessionId : '',
-        
-      });
+      this.props.ajaxRequest(URL_LOAD_VNEDERPIC, succType, genParams);
     }
   }
 
@@ -58,29 +56,22 @@ export default class SupplyProductsContent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.nowPics != nextProps.pics){
-      this.pagePics =[];
-      this.nowPics = nextProps.pics
-    }
-    if(nextProps.sessionId && !this.sessionId){
-      this.sessionId = this.props.sessionId
+    if((nextProps.sessionId && (!this.sessionId || nextProps.sessionId != this.sessionId))
+      || (nextProps.srcName && !nextProps.srcNameHidden && (!this.srcName || nextProps.srcName != this.srcName))
+      ){
+      this.sessionId = nextProps.sessionId
+      this.srcName = nextProps.srcName;
       this.loadPic();
     }
-    if(this.control){
-      this.control =false;
-      this.pagePics = this.pagePics.concat(this.props.pagePic)
-    }
-
-      
-
   }
 
   componentDidUpdate() {
     if(this.props.pics && this.props.pics.length > 0) {
       var $container = $('.masonry-container');
-      if(this.page>1){
+      if(this.page > 1){
         $container.masonry('destroy')
-      }   
+      } 
+
       $container.imagesLoaded( function () {
         $container.masonry({
           columnWidth: '.item',
@@ -90,33 +81,14 @@ export default class SupplyProductsContent extends React.Component {
     }
   }
   addMore(){
-    this.control = true;
-    this.page = this.page+1;
-
-    if(this.props.user.userType == "1"){
-      this.props.ajaxRequest(URL_LOAD_CLIENTPIC, LOAD_ADDMORE_SUCCESS, {
-        userId: this.props.user.userId,
-        sessionId: this.sessionId ? this.sessionId : '',
-        page:this.page,
-      });
-    }else if(this.props.user.userType == "2"){        
-      this.props.ajaxRequest(URL_LOAD_VNEDERPIC, LOAD_ADDMORE_SUCCESS, {
-        userId: this.props.user.userId,
-        sessionId: this.sessionId ? this.sessionId : '',
-        page:this.page,
-      });
-    }
+    this.page = this.page + 1;
+    this.loadPic(LOAD_ADDMORE_SUCCESS);
   }
   render() {
     let items = []
     if(this.props.pics.length >0){
-      this.nowPics =this.props.pics;
-      if(this.pagePics.length == 0){
-        this.pagePics = this.nowPics;
-      }
-      console.log("=====================",this.pagePics.length)
-      this.pagePics.map((pic, i) =>{               
-        items.push(<PicIndex pic={pic} key={i} />);
+      this.props.pics.map((pic, i) =>{               
+        items.push(<PicIndex pic={pic} key={i} {...this.props}/>);
       })
     }else{
       items.push(<p>查询无结果</p>)
@@ -145,18 +117,21 @@ export default class SupplyProductsContent extends React.Component {
             </div>            
           </div>
   			</div>
-
   		</div>
   	);
   }
 }
 function mapStateToProps(state, ownProps) {
-  return {
-    user: state.user,
+  return {    
     pics: state.userPic,
-    sessionId:state.getSessionId,
+    user: state.user,
+    srcName: state.getSrc.srcName,
+    sessionId: state.getSessionId,
+    srcNameHidden: state.getSrc.srcNameHidden
+    /*,
     pagePic: state.insertMore,
     searchPics:state.searchStatus,
+    */
   }
 }
 

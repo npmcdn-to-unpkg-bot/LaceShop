@@ -11,6 +11,7 @@ import Index from './components/IndexProduct';
 import SupplyProduct from './containers/SupplyProduct';
 import callMe from './containers/callMe';
 import suggestionFeedback from './containers/suggestionFeedback';
+import Dress from './containers/dress/Dress.js'
 
 const store = configureStore();
 
@@ -26,6 +27,7 @@ ReactDOM.render(
 		    	<Route path="/user/:indexName" component={Index}/>
 		    	<Route path="SupplyProduct" component={SupplyProduct}/>
 		    	<Route path="suggestionFeedback" component={suggestionFeedback}/>
+		    	<Route path="Dress" component={Dress}/>
 		    	<Route path="callMe" component={callMe}/>
 		    	<Route path="*" component={Index}/>
 		    </Route>

@@ -1,0 +1,180 @@
+.dress-3d {
+	padding-top: 20px;
+	font-family: 微软雅黑;
+
+	.left {
+		border: 1px solid #CCC;
+	    padding: 10px;
+	    box-shadow: 1px 1px 1px #ccc;
+
+		.top-title {
+		    border-bottom: 1px solid #9d9d9d;
+		    height: 45px;
+		    line-height: 35px;
+
+		    .title {
+	    	    font-size: 18px;
+			    font-family: 微软雅黑;
+			    color: #999;
+		    }
+
+		    .dress-btn {
+		    	float: right;
+		    }
+		}
+
+		.dress-content{
+	    	overflow: hidden;
+	    	margin-top: 10px;
+	    	text-align: center;
+
+	    	.gallery-cropper-area {
+	    		min-height: 785px;
+	    	}
+
+	    	img {
+		        max-height: 788px;
+	    		max-width: 100%;
+	    	}
+		}
+	}
+
+	.right {
+		.top {
+			border: 1px solid #CCC;
+		    padding: 10px;
+		    box-shadow: 1px 1px 1px #ccc;
+
+		    .top-title {
+			    border-bottom: 1px solid #9d9d9d;
+			    height: 45px;
+			    line-height: 35px;
+
+			    .title {
+		    	    font-size: 18px;
+				    font-family: 微软雅黑;
+				    color: #999;
+			    }
+
+			    .dress-btn {
+			    	float: right;
+			    	position: relative;
+
+			    	.pick-pic-input {
+			    		height: 37px;
+			    	}
+			    }
+			}
+
+			.target {
+				margin-top: 10px;
+				height: 201px;
+				overflow: hidden;
+
+				.dress-target-img {
+					width: 100%
+				}
+			}
+		}
+
+		.bottom {
+			margin-top: 15px;
+		    border: 1px solid #CCC;
+		    padding: 0 10px 10px 10px;
+		    box-shadow: 1px 1px 1px #ccc;
+
+		    #dressTabs {
+		    	.nav-tabs {
+		    		border-bottom: 2px solid rgb(1, 148, 189);
+
+					@mixin active {
+						border: 0;
+						background-color: transparent;
+						color: #2c84ff;
+						outline: 0;
+					}
+
+	    			li>a {
+		    			border: 0;
+		    			color: #999;
+		    			font-size: 18px;
+    					font-family: 微软雅黑;
+						
+						&:hover{
+							@include active;
+							color:#2c84ff;
+						}
+
+		    			&:before {
+	    				    font-family: 'Glyphicons Halflings';
+						    font-style: normal;
+						    font-weight: 400;
+						    line-height: 1;
+						    -webkit-font-smoothing: antialiased;
+    						-moz-osx-font-smoothing: grayscale;
+						    content: "\e253";
+						    position: absolute;
+						    bottom: -5px;
+						    left: 50%;
+						    margin-left: -9px;
+						    display: none;						        
+		    			}
+
+		    			&:hover, &:focus {
+		    				@include active;
+
+		    				&:before {
+		    					display: block;
+		    				}
+		    			}
+		    		}
+
+		    		li.active>a {
+		    			@include active;
+
+	    				&:before {
+	    					display: block;
+	    				}
+		    		}			    	
+		    	}
+
+		    	.tab-content {
+		    		margin-top: 10px;
+
+		    		.dress-nav {
+
+		    			@mixin active_nav {
+		    				background-color: #0194bd;
+		    				color: #fff;
+		    			} 
+
+		    			ul>li>a {
+						    border-radius: 0;
+						    font-family: 微软雅黑;
+						    padding: 6px;
+						    width: 72px;
+						    text-align: center;
+						    background-color: #f5f5f5;
+    						color: #0194bd;
+    						margin-left: 10px;
+
+    						&:hover, &:focus {
+    							@include active_nav;
+    						}
+		    			}
+
+		    			ul>li.active>a {
+   							@include active_nav;
+		    			}
+		    		}
+		    	}
+		    }
+			
+			.nav-content {
+				max-height: 500px;
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+		}
+	}
+}

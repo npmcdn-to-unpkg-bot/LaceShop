@@ -9,9 +9,9 @@ import HeaderUserTip from './HeaderUserTip.js';
 import { browserHistory,router,hashHistory, } from 'react-router';
 import { Nav, NavItem, OverlayTrigger, Popover, Modal, Overlay, ProgressBar,form, DropdownButton,MenuItem } from 'react-bootstrap';
 import { LOAD_SEARCH_SUCCESS, LOAD_SEARCH_PERCENT_SUCCESS, LOAD_USERLOGIN_SUCCESS, 
-  LOAD_CAPTCHA_SUCCESS, LOAD_ADDUSER_SUCCESS } from '../actions';
+  LOAD_CAPTCHA_SUCCESS, LOAD_ADDUSER_SUCCESS ,LOAD_SEARCHBYCODE_SUCCES ,LOAD_PIC_SUCCESS} from '../actions';
 import { URL_LOAD_CLIENTPIC, URL_LOAD_VNEDERPIC, URL_LOAD_SEARCH_PERCENT, 
-  URL_LOAD_TOLOGIN, URL_LOAD_CAPTCHA, URL_LOAD_SAVEUSER } from '../utils/URLs.js';
+  URL_LOAD_TOLOGIN, URL_LOAD_CAPTCHA, URL_LOAD_SAVEUSER, URL_LOAD_SEARCHBYCODE } from '../utils/URLs.js';
 
 
 export default class Header extends React.Component {  
@@ -30,6 +30,7 @@ export default class Header extends React.Component {
       roleName: '我是采购商',
       showModalRegister:false,
       switchUpload:false,
+      
     };
 
     this.flags = true;
@@ -54,6 +55,18 @@ export default class Header extends React.Component {
     this.toRegister = this.toRegister.bind(this);
     this.submitLogin = this.submitLogin.bind(this);
     this.sendCAPTCHA = this.sendCAPTCHA.bind(this);
+    this.findByCode = this.findByCode.bind(this);
+  }
+
+  findByCode(){
+    let srcName = $(this.refs.inputSrcName).val()
+    if(!srcName){
+      alert("请输入产品编号")
+    }
+    this.props.changHandle(2);
+    browserHistory.push(`/SupplyProduct`)
+    this.props.getSrcName(srcName);
+    this.props.getParame('');
   }
 
   sendCAPTCHA(){
@@ -176,6 +189,7 @@ export default class Header extends React.Component {
       this.setState({
         isSearching: true
       })
+
       ajaxRequest(loadUrl, LOAD_SEARCH_SUCCESS, {
         srcName: this.srcName,
         srcNameHidden: this.picPath,
@@ -274,9 +288,8 @@ export default class Header extends React.Component {
         });
       },2000)      
     } else if (this.state.percent >= 100 && this.state.switchUpload) {
-      console.log(1111)
-      this.setState({switchUpload:false})
       this.setState({
+        switchUpload:false,
         isSearching: false,
         percent: -1
       })
@@ -343,12 +356,12 @@ export default class Header extends React.Component {
                 <span>上传搜花</span>
                 <input type="file" name="files" accept="image/*" id = "fileupload1" className="pick-pic-input" data-url={Utils.serverName + 'client/clientUpload.shtml'}/>
               </a>
-              <form className="search-form">
+              <form className="search-form" >
                 <span className="stuwr"> 
-                  <input type="text" placeholder="编号" className="search-key"/>                      
+                  <input type="text" placeholder="编号" className="search-key" ref = "inputSrcName"/>                      
                 </span> 
                 <span className="stsb"> 
-                  <input type="submit" value="搜花一下"/>
+                  <input type="button" value="搜花一下" onClick ={this.findByCode}/>
                 </span>
               </form>
 
@@ -372,7 +385,7 @@ export default class Header extends React.Component {
                 </div>
               </div>
             </div>
-            <ProgressBar style={(this.state.switchUpload ? {display: 'block'} : {display: 'none'})} now={(this.props.searchStatus > 0 ? this.props.searchStatus : 0)} label={(this.props.searchStatus > 0 ? `${this.props.searchStatus}%` : '')} />
+            <ProgressBar style={(this.state.switchUpload ? {display: 'block'} : {display: 'none'})} now={(this.state.percent > 0 ? this.state.percent : 0)} label={(this.state.percent > 0 ? `${this.state.percent}%` : '')} />
 
           </div>
           <div className="clearfix"></div>
@@ -387,6 +400,7 @@ export default class Header extends React.Component {
               <NavItem className={'nav-item'} eventKey={2}  onSelect={() => this.handleChange('SupplyProduct', 2)}>供应产品</NavItem>
               <NavItem className={'nav-item'} eventKey={4}  onSelect={() => this.handleChange('callMe', 4)}>联系方式</NavItem>
               <NavItem className={'nav-item'} eventKey={5}  onSelect={() => this.handleChange('suggestionFeedback', 5)}>意见反馈</NavItem>
+              <NavItem className={'nav-item'} eventKey={6}  onSelect={() => this.handleChange('Dress', 6)}>3D试衣</NavItem>
             </Nav>
           </div>
         </div>
@@ -488,6 +502,7 @@ export default class Header extends React.Component {
             </div>
             </Modal.Body>
           </Modal>
+        
       </div>
     );
   }

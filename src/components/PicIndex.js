@@ -1,13 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
+import Overbooking from './Overbooking.js';
+import { ajaxRequest } from '../actions';
 
 let Utils = require('../utils/utils');
 require('styles/PicIndexSupply.scss');
 
+
 export default class PicIndex extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { showModal: false };
+		this.state = { showModal: false,overModal:false, };
 
 		this.close = this.close.bind(this);
 		this.open = this.open.bind(this);
@@ -19,12 +23,13 @@ export default class PicIndex extends React.Component {
   }
 
   close() {
-    this.setState({ showModal: false });
+    this.setState({ overModal:false });
   }
 
   open() {
-    this.setState({ showModal: true });
+    this.setState({ overModal:true });
   }
+
 
   render() {
   	var url = Utils.serverName + 'search/picSearchGetThumbnail.shtml?picPath=' + this.props.pic.url + '&searchType=2';
@@ -52,16 +57,17 @@ export default class PicIndex extends React.Component {
 			        </div>
 		        </div>
 			</div>
-			
-			<Modal show={this.state.showModal} onHide={this.close}>
-	          <Modal.Body>
-	            <h4>下单成功</h4>
-	          </Modal.Body>
-	          <Modal.Footer>
-	            <Button onClick={this.close}>关闭</Button>
-	          </Modal.Footer>
-	        </Modal>
+			<Overbooking overModal = {this.state.overModal} {...this.props}/>
 		</div>
   	);
   }
 }
+function mapStateToProps(state, ownProps) {
+  return {
+  	user:state.user,
+  	checkOver:state.overbooking,
+  }
+}
+export default connect(mapStateToProps, {
+	ajaxRequest,
+})(PicIndex)

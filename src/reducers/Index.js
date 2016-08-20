@@ -11,7 +11,8 @@ import { LOAD_USER_SUCCESS, LOAD_PIC_SUCCESS ,
 	LOAD_VENDER_SUCCESS,GETADDRESS_SUCCESS,
 	LOAD_CONTENT_SUCCESS,CHANGE_WHERE_SUCCESS,
 	LOAD_ADDMORE_SUCCESS, LOAD_CAPTCHA_SUCCESS,
-	LOAD_ADDUSER_SUCCESS} from '../actions'
+	LOAD_ADDUSER_SUCCESS, LOAD_SEARCHBYCODE_SUCCESS,
+	LOAD_OVERBOOKING_SUCCESS} from '../actions'
 
 function user(state = {}, action) {
   switch (action.type) {    
@@ -29,6 +30,11 @@ function userPic(state=[], action){
 				return action.response;
 			}
 		    return [];
+		case LOAD_ADDMORE_SUCCESS:
+			if(action.response){
+				return state.concat(action.response)
+			}
+			return state;
 		default:
 			return state;
 	}
@@ -215,15 +221,6 @@ function uploadContext(state=null,action){
 	}
 }
 
-function insertMore(state=[],action){
-	switch(action.type){
-		case LOAD_ADDMORE_SUCCESS:
-		    return action.response;
-		default:
-			return state;
-	}
-}
-
 function getRegCode(state=null,action){
 	switch(action.type){
 		case LOAD_CAPTCHA_SUCCESS:
@@ -236,6 +233,33 @@ function getRegCode(state=null,action){
 function saveUser(state=null,action){
 	switch(action.type){
 		case LOAD_ADDUSER_SUCCESS:
+		    return action.response;
+		default:
+			return state;
+	}
+}
+
+function getSrc(state = {}, action){
+	switch(action.type){
+		case LOAD_SEARCHBYCODE_SUCCESS:
+		    return {
+		    	srcName: action.srcName,
+		    	srcNameHidden: ''
+		    }
+		case LOAD_SEARCH_SUCCESS: 
+			return {
+		    	srcName: action.srcName,
+		    	srcNameHidden: action.srcNameHidden
+		    }
+		default:
+			return state;
+	}
+}
+
+function overbooking(state=null,action){
+	switch(action.type){
+		case LOAD_OVERBOOKING_SUCCESS:
+			console.log("action==================",action.response)
 		    return action.response;
 		default:
 			return state;
@@ -261,10 +285,11 @@ const rootReducer = combineReducers({
    getAddress,
    uploadContext,
    getChanges,
-   insertMore,
    tologin,
    getRegCode,
    saveUser,
+   getSrc,
+   overbooking,
 });
 
 export default rootReducer;

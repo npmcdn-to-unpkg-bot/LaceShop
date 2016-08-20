@@ -25,6 +25,9 @@ export const CHANGE_WHERE_SUCCESS = 'CHANGE_WHERE_SUCCESS';
 export const LOAD_ADDMORE_SUCCESS = 'LOAD_ADDMORE_SUCCESS';
 export const LOAD_CAPTCHA_SUCCESS = 'LOAD_CAPTCHA_SUCCESS';//验证码
 export const LOAD_ADDUSER_SUCCESS = 'LOAD_ADDUSER_SUCCESS';
+export const LOAD_SEARCHBYCODE_SUCCESS = 'LOAD_SEARCHBYCODE_SUCCESS';
+export const LOAD_OVERBOOKING_SUCCESS = 'LOAD_OVERBOOKING_SUCCESS';
+
  
 function ajaxFetch(url, actionType, params, shouldCallAPI) {
   let types = [LOAD_REQUEST, '', LOAD_FAILURE];
@@ -51,6 +54,10 @@ function ajaxFetch(url, actionType, params, shouldCallAPI) {
 
 export function ajaxRequest(url, actionType, params, shouldCallAPI) {
   return (dispatch, getState) => {
+    if(typeof params == 'function'){
+      var state = getState();
+      params = params.call(state, state);
+    }
     return dispatch(ajaxFetch(url, actionType, params, shouldCallAPI))
   }
 }
@@ -83,6 +90,14 @@ export function getChangeType(changeType){
     return dispatch({
       type: CHANGE_WHERE_SUCCESS,
       changeType: changeType
+    })
+  }
+}
+export function getSrcName(srcName){
+  return (dispatch, getState) => {
+    return dispatch({
+      type: LOAD_SEARCHBYCODE_SUCCESS,
+      srcName: srcName
     })
   }
 }

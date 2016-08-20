@@ -11,4 +11,6 @@ export const URL_LOAD_CONTENT = 'storeCommentAdd.shtml';
 export const URL_LOAD_TOLOGIN = 'userLogin.shtml';
 export const URL_LOAD_CAPTCHA = 'purchase/postRegCode.shtml';
 export const URL_LOAD_SAVEUSER = 'purchase/saveUser.shtml';
+export const URL_LOAD_SEARCHBYCODE = 'pageIndexPicVender.shtml';
+export const URL_LOAD_OVERBOOKING = 'mall/mallOrderAdd.shtml';
 
