@@ -35,7 +35,7 @@ export default class PicIndex extends React.Component {
 
 
   render() {
-  	var url = Utils.serverName + 'search/picSearchGetThumbnail.shtml?picPath=' + this.props.pic.url + '&searchType='+this.props.user.userType;;
+  	var url = Utils.serverName + 'search/picSearchGetThumbnail.shtml?picPath=' + this.props.pic.url + '&searchType='+this.props.user.userType;
   	//var url = 'http://www.lacewang.com/pic/picThumb?picPath=' + this.props.pic.url + '&picType=2&size=300';
   	return (
 		<div className="col-md-3 col-sm-4 col-xs-6 my-col pic item">
@@ -46,8 +46,8 @@ export default class PicIndex extends React.Component {
 		        <div className="caption">
 			        <div className="price">
 				        <span>¥</span>
-				        <strong>{this.props.pic.price ? this.props.pic.price :'未知'}</strong>
-				        <span className ="stock" >&nbsp;&nbsp;&nbsp;库存:{this.props.pic.stock=='无库存'? '无库存':this.props.pic.stock+"(千克)"} </span>
+				         <strong>¥{this.props.pic.price ? this.props.pic.price :':'}</strong>
+				        <p className ="stock" >&nbsp;库存:{this.props.pic.stock=='无库存' || this.props.pic.stock == ""? '无库存':this.props.pic.stock+""} </p>
 			        </div>
 			        <div className = "backgrounds1"></div>
 			        <div className="no">

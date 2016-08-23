@@ -27,7 +27,7 @@ export default class IndexProduct extends React.Component {
       }
       this.state.ourname = indexNames
     }
-    
+    console.log("========this.state.ourname=====",this.state.ourname)
     this.props.getAdress(this.state.ourname);
     this.props.ajaxRequest(URL_LOAD_USER, LOAD_USER_SUCCESS, {
       indexName: indexNames
@@ -79,12 +79,16 @@ export default class IndexProduct extends React.Component {
             <button onClick={this.goto.bind(this,3)}>小边</button>
             <button onClick={this.goto.bind(this,4)}>睫毛</button>
           </div>
-          <span className = "iconfont icon-zuixin fire" ></span>
-  				<ContentTitle title="最近新增" className = "fireName" pics={this.props.nowPic}/>
-  				<IndexProductsItem orderBy="1" category="0" pics={this.props.nowPic} user={this.props.user} successType ={LOAD_NOW_SUCCESS}/>
-          <span className = "iconfont icon-redu news"></span>
-          <ContentTitle title="店铺热搜" pics={this.props.hotPic}/>
-          <IndexProductsItem user={this.props.user} pics={this.props.hotPic} orderBy="2" category="0" successType={LOAD_FINDHOT_SUCCESS}/>
+          <div className = "newSomething">
+            <span className = "iconfont icon-zuixin fire" ></span>
+    				<ContentTitle title="最近新增" className = "fireName" pics={this.props.nowPic}/>
+    				<IndexProductsItem orderBy="1" category="0" pics={this.props.nowPic} user={this.props.user} successType ={LOAD_NOW_SUCCESS}/>
+          </div>
+          <div className = "hotSomething">
+            <span className = "iconfont icon-redu news"></span>
+            <ContentTitle title="店铺热搜" pics={this.props.hotPic}/>
+            <IndexProductsItem user={this.props.user} pics={this.props.hotPic} orderBy="2" category="0" successType={LOAD_FINDHOT_SUCCESS}/>
+          </div>
           <a name = 'linging'></a>
           <ContentTitle2 title="面料" pics={this.props.liningPic}/>
           <IndexProductsItem user={this.props.user} pics={this.props.liningPic} orderBy="0" category="4" successType={LOAD_LINING_SUCCESS}/>

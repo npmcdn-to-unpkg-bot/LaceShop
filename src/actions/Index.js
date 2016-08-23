@@ -29,6 +29,7 @@ export const LOAD_SEARCHBYCODE_SUCCESS = 'LOAD_SEARCHBYCODE_SUCCESS';
 export const LOAD_OVERBOOKING_SUCCESS = 'LOAD_OVERBOOKING_SUCCESS';
 export const LOAD_THISPIC_SUCCESS = 'LOAD_THISPIC_SUCCESS';
 export const LOAD_COMMENTS_SUCCESS = 'LOAD_COMMENTS_SUCCESS';
+export const LOAD_GETBOOLEAN_SUCCESS = 'LOAD_GETBOOLEAN_SUCCESS';
 
  
 function ajaxFetch(url, actionType, params, shouldCallAPI) {
@@ -123,6 +124,14 @@ export function commentAction(allParams){
         pic:pic,//这次图片的urls
         sessionId,sessionId,//从后台传回来的变量
       }
+    })
+  }
+}
+export function getBooleans(flag){
+  return (dispatch, getState) => {
+    return dispatch({
+      type: LOAD_GETBOOLEAN_SUCCESS,
+      flag: flag,
     })
   }
 }

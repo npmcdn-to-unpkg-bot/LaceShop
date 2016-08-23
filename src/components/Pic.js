@@ -45,8 +45,8 @@ export default class Pic extends React.Component {
 				<div className="caption">
 			        <div className="price">
 				        <span></span>
-				        <strong>¥{this.props.pic.price ? this.props.pic.price :'未知'}</strong>
-				        <span className ="stock" >&nbsp;库存:{this.props.pic.stock=='无库存'? '无库存':this.props.pic.stock+"(千克)"} </span>
+				        <strong>¥{this.props.pic.price ? this.props.pic.price :':'}</strong>
+				        <p className ="stock" >&nbsp;库存:{this.props.pic.stock=='无库存' || this.props.pic.stock == ""? '无库存':this.props.pic.stock+""} </p>
 			        </div>
 			        <div className="stock"></div>	
 			        <div className = "backgrounds"></div>

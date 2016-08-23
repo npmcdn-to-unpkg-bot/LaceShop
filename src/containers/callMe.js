@@ -7,17 +7,26 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router'
 import { ajaxRequest, LOAD_VENDER_SUCCESS} from '../actions';
 import { URL_LOAD_VENDER } from '../utils/URLs.js';
+import Login from '../components/Login.js';
 
 export default class  callMe extends React.Component{
     constructor(props) {
       super(props);
       this.vender = [];
+      this.toLogin = this.toLogin.bind(this);
+      this.state ={
+      	showModalToLogin:false,
+      }
     }
-
+    toLogin(){
+    	this.setState({
+    		showModalToLogin:true,
+    	})
+    }
     componentWillMount(){
     	if(this.props.user.userId){
-	      		this.props.ajaxRequest(URL_LOAD_VENDER, LOAD_VENDER_SUCCESS, {
-	      			id:this.props.user.userId
+      		this.props.ajaxRequest(URL_LOAD_VENDER, LOAD_VENDER_SUCCESS, {
+      			id:this.props.user.userId
 			});
     	}
     }
@@ -52,8 +61,8 @@ export default class  callMe extends React.Component{
 			                  <span className="infoIco">
 			                      <i className="iconfont">&#xe609;</i>
 			                  </span>
-			                  <span className="infoText hasLogin">
-			                      移动电话 : <a href="javascript:;">登入</a>后可见
+			                  <span className="infoText hasLogin " >
+			                      移动电话 : {this.props.tologin? (this.props.vender?this.props.vender.vender_tel:''):''} <a href="javascript:;" style = {this.props.tologin ? {visibility: 'hidden'}:{}} onClick = {this.toLogin}>登录后可见</a>
 			                  </span>
 			               </li>
 			               <li className="right">
@@ -61,7 +70,7 @@ export default class  callMe extends React.Component{
 			                      <i className="iconfont">&#xe607;</i>
 			                  </span>
 			                  <span className="infoText">
-			                      邮编 : 518290
+			                      邮编 : 
 			                  </span>
 			               </li>
 			               <li className="left">
@@ -77,7 +86,7 @@ export default class  callMe extends React.Component{
 			                      <i className="iconfont">&#xe60e;</i>
 			                  </span>
 			                  <span className="infoText">
-			                      公司主页 : <a className="OfficialWebsite" href="ts57.lacewang.cn">{this.props.address}.lacewang.cn?auto=1</a>
+			                      公司主页 : <a className="OfficialWebsite" href="ts57.lacewang.cn">{this.props.address}.lacewang.cn</a>
 			                  </span>
 			               </li>
 			               <p style={{clear: 'both'}}></p>
@@ -87,7 +96,9 @@ export default class  callMe extends React.Component{
 			          <img src={Utils.home+"images/map.png"} width="100%" height="100%" />
 			      </div>
 			     </div>
+			     <Login {...this.props} showModalToLogin = {this.state.showModalToLogin}/>
 			  </div>
+			  
 		  );
 	}
 }
@@ -95,9 +106,12 @@ function mapStateToProps(state, ownProps) {
   return {
   	user: state.user,
   	vender: state.getVenderInfo,
+  	address: state.getAddress,
+  	tologin: state.tologin,
+
   }
 }
-
+ 	
 export default connect(mapStateToProps, {
   ajaxRequest,
 })(callMe)

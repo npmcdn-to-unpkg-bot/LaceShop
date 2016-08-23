@@ -12,7 +12,8 @@ import { LOAD_USER_SUCCESS, LOAD_PIC_SUCCESS ,
 	LOAD_CONTENT_SUCCESS,CHANGE_WHERE_SUCCESS,
 	LOAD_ADDMORE_SUCCESS, LOAD_CAPTCHA_SUCCESS,
 	LOAD_ADDUSER_SUCCESS, LOAD_SEARCHBYCODE_SUCCESS,
-	LOAD_OVERBOOKING_SUCCESS, LOAD_THISPIC_SUCCESS} from '../actions'
+	LOAD_OVERBOOKING_SUCCESS, LOAD_THISPIC_SUCCESS,
+	LOAD_GETBOOLEAN_SUCCESS} from '../actions'
 
 function user(state = {}, action) {
   switch (action.type) {    
@@ -267,8 +268,15 @@ function overbooking(state=null,action){
 function getPic(state=null,action){
 	switch(action.type){
 		case LOAD_THISPIC_SUCCESS:
-		console.log(action.pic)
 		    return action.pic;
+		default:
+			return state;
+	}
+}
+function getflage(state=true,action){
+	switch(action.type){
+		case LOAD_GETBOOLEAN_SUCCESS:
+		    return action.flag;
 		default:
 			return state;
 	}
@@ -300,6 +308,7 @@ const rootReducer = combineReducers({
    getSrc,
    overbooking,
    getPic,
+   getflage,
 });
 
 export default rootReducer;

@@ -20,16 +20,15 @@ class Dress extends React.Component {
     this.changeAvatar = this.changeAvatar.bind(this);
     this.downloadFile = this.downloadFile.bind(this);
     this.state = {
-      modelUrl: 'D%3A%5C%E5%9B%BE%E5%BA%93%5C%E5%8E%82%E5%AE%B6%E5%9B%BE%E5%BA%93%5C%E9%87%91%E9%91%AB_8769%5C%E9%9D%A2%E6%96%99%5C8769_603339.jpeg',
-      thumbnail: Utils.serverName+"search/picSearchGetThumbnail.shtml?picPath=D%3A%5C%E5%9B%BE%E5%BA%93%5C%E5%8E%82%E5%AE%B6%E5%9B%BE%E5%BA%93%5C%E9%87%91%E9%91%AB_8769%5C%E9%9D%A2%E6%96%99%5C8769_603339.jpeg",
-      avatarCode: 112
+      modelUrl: '',
+      thumbnail: '',
+      avatarCode: 0,
     }
     this.urls = "";
   }  
 
   refresh() {
     if(!this.state.modelUrl || !this.state.avatarCode){
-      alert(11111)
       return;
     }
 

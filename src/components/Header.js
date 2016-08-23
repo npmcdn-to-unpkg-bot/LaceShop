@@ -9,7 +9,7 @@ import HeaderUserTip from './HeaderUserTip.js';
 import { browserHistory,router,hashHistory, } from 'react-router';
 import { Nav, NavItem, OverlayTrigger, Popover, Modal, Overlay, ProgressBar,form, DropdownButton,MenuItem } from 'react-bootstrap';
 import { LOAD_SEARCH_SUCCESS, LOAD_SEARCH_PERCENT_SUCCESS, LOAD_USERLOGIN_SUCCESS, 
-  LOAD_CAPTCHA_SUCCESS, LOAD_ADDUSER_SUCCESS ,LOAD_SEARCHBYCODE_SUCCES ,LOAD_PIC_SUCCESS} from '../actions';
+  LOAD_CAPTCHA_SUCCESS, LOAD_ADDUSER_SUCCESS ,LOAD_SEARCHBYCODE_SUCCES ,LOAD_PIC_SUCCESS } from '../actions';
 import { URL_LOAD_CLIENTPIC, URL_LOAD_VNEDERPIC, URL_LOAD_SEARCH_PERCENT, 
   URL_LOAD_TOLOGIN, URL_LOAD_CAPTCHA, URL_LOAD_SAVEUSER, URL_LOAD_SEARCHBYCODE } from '../utils/URLs.js';
 
@@ -274,6 +274,7 @@ export default class Header extends React.Component {
       this.setState({ showModalToLogin: false });
       alert("登录成功")
       this.checkFristLogin =false;
+      this.props.getBooleans(false)
     }
     let { searchStatus, ajaxRequest, sessionId } = nextProps;
     this.state.percent = searchStatus
