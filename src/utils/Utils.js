@@ -19,7 +19,7 @@ function dress(event, that) {
   }
   var id = $(that).attr('data-id');   
   var searchType = $(that).attr('data-searchType');
-  var url = home + '/pic/dress3dGalleryEx.shtml?url=' + src;
+  var url = home + 'pic/dress3dGalleryEx.shtml?url=' + src;
   if(id){
     url += '&id=' + id;
   }

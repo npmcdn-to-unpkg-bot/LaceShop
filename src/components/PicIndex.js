@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import Overbooking from './Overbooking.js';
-import { ajaxRequest } from '../actions';
+import { ajaxRequest, changHandle ,getPics} from '../actions';
+import { browserHistory,router,hashHistory, } from 'react-router';
 
 let Utils = require('../utils/utils');
 require('styles/PicIndexSupply.scss');
@@ -15,11 +16,13 @@ export default class PicIndex extends React.Component {
 
 		this.close = this.close.bind(this);
 		this.open = this.open.bind(this);
+		this.picDress = this.picDress.bind(this);
 	}
 
   picDress(e) {
-  	var that = e.target;
-  	Utils.dress(e, that);
+  	this.props.getPics(this.props.pic.url)
+  	this.props.changHandle(6);
+    browserHistory.push(`/Dress`)
   }
 
   close() {
@@ -32,7 +35,7 @@ export default class PicIndex extends React.Component {
 
 
   render() {
-  	var url = Utils.serverName + 'search/picSearchGetThumbnail.shtml?picPath=' + this.props.pic.url + '&searchType=2';
+  	var url = Utils.serverName + 'search/picSearchGetThumbnail.shtml?picPath=' + this.props.pic.url + '&searchType='+this.props.user.userType;;
   	//var url = 'http://www.lacewang.com/pic/picThumb?picPath=' + this.props.pic.url + '&picType=2&size=300';
   	return (
 		<div className="col-md-3 col-sm-4 col-xs-6 my-col pic item">
@@ -70,4 +73,6 @@ function mapStateToProps(state, ownProps) {
 }
 export default connect(mapStateToProps, {
 	ajaxRequest,
+	changHandle,
+	getPics,
 })(PicIndex)

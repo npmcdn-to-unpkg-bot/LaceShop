@@ -12,7 +12,7 @@ import { LOAD_USER_SUCCESS, LOAD_PIC_SUCCESS ,
 	LOAD_CONTENT_SUCCESS,CHANGE_WHERE_SUCCESS,
 	LOAD_ADDMORE_SUCCESS, LOAD_CAPTCHA_SUCCESS,
 	LOAD_ADDUSER_SUCCESS, LOAD_SEARCHBYCODE_SUCCESS,
-	LOAD_OVERBOOKING_SUCCESS} from '../actions'
+	LOAD_OVERBOOKING_SUCCESS, LOAD_THISPIC_SUCCESS} from '../actions'
 
 function user(state = {}, action) {
   switch (action.type) {    
@@ -259,12 +259,21 @@ function getSrc(state = {}, action){
 function overbooking(state=null,action){
 	switch(action.type){
 		case LOAD_OVERBOOKING_SUCCESS:
-			console.log("action==================",action.response)
 		    return action.response;
 		default:
 			return state;
 	}
 }
+function getPic(state=null,action){
+	switch(action.type){
+		case LOAD_THISPIC_SUCCESS:
+		console.log(action.pic)
+		    return action.pic;
+		default:
+			return state;
+	}
+}
+
 
 const rootReducer = combineReducers({
    user : user,
@@ -290,6 +299,7 @@ const rootReducer = combineReducers({
    saveUser,
    getSrc,
    overbooking,
+   getPic,
 });
 
 export default rootReducer;

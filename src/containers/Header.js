@@ -1,7 +1,7 @@
 import { PropTypes } from 'react'
 import { connect } from 'react-redux';
 import Header from '../components/Header.js';
-import { ajaxRequest, changHandle, getParame, getSrcName } from '../actions';
+import { ajaxRequest, changHandle, getParame, getSrcName,getPics } from '../actions';
 
 Header.propTypes = {
  
@@ -23,4 +23,5 @@ export default connect(mapStateToProps, {
   changHandle,
   getParame,
   getSrcName,
+  getPics,
 })(Header)

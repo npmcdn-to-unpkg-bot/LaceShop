@@ -27,6 +27,8 @@ export const LOAD_CAPTCHA_SUCCESS = 'LOAD_CAPTCHA_SUCCESS';//验证码
 export const LOAD_ADDUSER_SUCCESS = 'LOAD_ADDUSER_SUCCESS';
 export const LOAD_SEARCHBYCODE_SUCCESS = 'LOAD_SEARCHBYCODE_SUCCESS';
 export const LOAD_OVERBOOKING_SUCCESS = 'LOAD_OVERBOOKING_SUCCESS';
+export const LOAD_THISPIC_SUCCESS = 'LOAD_THISPIC_SUCCESS';
+export const LOAD_COMMENTS_SUCCESS = 'LOAD_COMMENTS_SUCCESS';
 
  
 function ajaxFetch(url, actionType, params, shouldCallAPI) {
@@ -98,6 +100,29 @@ export function getSrcName(srcName){
     return dispatch({
       type: LOAD_SEARCHBYCODE_SUCCESS,
       srcName: srcName
+    })
+  }
+}
+
+export function getPics(pic){
+  return (dispatch, getState) => {
+    return dispatch({
+      type: LOAD_THISPIC_SUCCESS,
+      pic: pic
+    })
+  }
+}
+export function commentAction(allParams){
+  return (dispatch,getState) =>{
+    return dispatch({
+      type:LOAD_COMMENTS_SUCCESS,
+      allParams:{
+        changeType: changeType,//跳转导航条
+        navIndex: navIndex,//跳转导航条
+        srcName: srcName,//
+        pic:pic,//这次图片的urls
+        sessionId,sessionId,//从后台传回来的变量
+      }
     })
   }
 }

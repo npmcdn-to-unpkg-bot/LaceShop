@@ -1,13 +1,39 @@
 require('styles/Pic.scss');
 require('styles/PicIndex.scss')
-import React from 'react';
-
 let Utils = require('../utils/Utils');
+import React from 'react';
+import { connect } from 'react-redux';
+import Overbooking from './Overbooking.js';
+import { ajaxRequest, changHandle,getPics} from '../actions';
+import { browserHistory,router,hashHistory, } from 'react-router';
+
+
 
 export default class Pic extends React.Component {
+  constructor(props) {
+	super(props);
+	this.state = { overModal:false };
+	this.picDress = this.picDress.bind(this);
+	this.close = this.close.bind(this);
+	this.open = this.open.bind(this);
+  }
+
+  picDress(){
+  	this.props.getPics(this.props.pic.url)
+  	this.props.changHandle(6);
+    browserHistory.push(`/Dress`)
+  }
+
+  close() {
+    this.setState({ overModal:false });
+  }
+
+  open() {
+    this.setState({ overModal:true });
+  }
 
   render() {
-  	let url = Utils.serverName + 'search/picSearchGetThumbnail.shtml?picPath=' + this.props.pic.url + '&searchType=2';
+  	let url = Utils.serverName + 'search/picSearchGetThumbnail.shtml?picPath=' + this.props.pic.url + '&searchType='+this.props.user.userType;
   	return (
 		<div className="col-md-2 col-sm-3 col-xs-4 my-col pic">
 			<div className = "borders">
@@ -35,7 +61,19 @@ export default class Pic extends React.Component {
 			        </div>
 		        </div>
 	        </div>
+	        <Overbooking overModal = {this.state.overModal} {...this.props}/>
 		</div>
   	);
   }
 }
+function mapStateToProps(state, ownProps) {
+  return {
+  	user:state.user,
+  	checkOver:state.overbooking,
+  }
+}
+export default connect(mapStateToProps, {
+  ajaxRequest,
+  changHandle,
+  getPics,
+})(Pic)

@@ -45,13 +45,12 @@ export default class Overbooking extends React.Component {
   }
 componentWillReceiveProps(nextProps){
     this.setState({showModalOver:nextProps.overModal})
-    console.log("==========checkOver2",nextProps.checkOver)
-    if(nextProps.checkOver == '成功' && this.flag){
+    if(nextProps.checkOver && this.flag){
       this.flag = false;
       this.setState({
         showModalOver:false,
       })
-      alert("成功")
+      alert("下单成功")
     }
   }
 

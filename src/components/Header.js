@@ -149,6 +149,7 @@ export default class Header extends React.Component {
 
   handleChange(nextValue, navIndex) {
     this.props.changHandle(navIndex);
+    this.props.getPics(null);
     browserHistory.push(`/${nextValue}`)
   }
 
